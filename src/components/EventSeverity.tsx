@@ -1,9 +1,14 @@
 import { useState } from "react";
 
 function eventSeverity() {
-    const eventSeverityArr = ["בחר/י" , "קל", "בינוני", " חמור"];
+    const eventSeverityArr = [
+        {value:"", label:"בחר/י"},
+        {value:"low", label:"קל"},
+        {value:"medium", label:"בינוני"},
+        {value:"high", label:" חמור"}
+        ];
 
-    const [eventSeverity, setEventSeverity] = useState(eventSeverityArr[0]);
+    const [eventSeverity, setEventSeverity] = useState(eventSeverityArr[0].value);
 
     return(
         <label>
@@ -13,14 +18,14 @@ function eventSeverity() {
             value = {eventSeverity}
             onChange ={(e) => setEventSeverity(e.target.value)}>
             
-            {eventSeverityArr.map((level, index) =>(
+            {eventSeverityArr.map((item, index) =>(
                 <option
                     key={index} 
-                    value={level}
+                    value={item.value}
                     disabled={index==0}
                     hidden={index==0}
                     >
-                {level}
+                {item.label}
                 </option>
             ))}
             </select>

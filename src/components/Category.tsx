@@ -2,12 +2,32 @@ import { useState } from "react";
 
 function category () {
     const categoryArr = [
-    ,"בחר/י", "נשק ומקלעים ","דרכים","תחמושת",`ירי דו" צ`,"מזג-אוויר",`רק"מ וצמ"ה קרביים`,`שת"פ אוויר`,"עבודה"
-    ,"אוויר","בטיחות ימי","ספורט ואקסטרים","נפילות/חבלות","חריגות ירי או תנועה של כוחות בשטחי אימונים",`חומ"ס`
-    ,`(אמל"ח ) לא נשק /מקלעים`,"אש",`טג"ח קרבי`,`שת"פ ים `,"ייעודי עורף /חילוץ והצלה","אמצעי רום קרוב לקרקע"
-    ,"כושר גופני/ קרבי"];
+    { value: "", label: "בחר/י" },
+    { value: "weapons", label: "נשק ומקלעים" },
+    { value: "roads", label: "דרכים" },
+    { value: "ammo", label: "תחמושת" },
+    { value: "friendly_fire", label: `ירי דו"צ` },
+    { value: "weather", label: "מזג-אוויר" },
+    { value: "armored_vehicles", label: `רק"מ וצמ"ה קרביים` },
+    { value: "air_cooperation", label: `שת"פ אוויר` },
+    { value: "work", label: "עבודה" },
+    { value: "air", label: "אוויר" },
+    { value: "marine_safety", label: "בטיחות ימי" },
+    { value: "sports_extreme", label: "ספורט ואקסטרים" },
+    { value: "injuries", label: "נפילות/חבלות" },
+    { value: "fire_or_movement", label: "חריגות ירי או תנועה של כוחות בשטחי אימונים" },
+    { value: "hazmat", label: `חומ"ס` },
+    { value: "non_weapon_ammunition", label: `(אמל"ח) לא נשק /מקלעים` },
+    { value: "fire", label: "אש" },
+    { value: "combat_training", label: `טג"ח קרבי` },
+    { value: "naval_cooperation", label: `שת"פ ים` },
+    { value: "rescue_operations", label: "ייעודי עורף /חילוץ והצלה" },
+    { value: "low_altitude_equipment", label: "אמצעי רום קרוב לקרקע" },
+    { value: "fitness", label: "כושר גופני/קרבי" }
+    ];
 
-    const [category, setCategory] = useState(categoryArr[0]);
+
+    const [category, setCategory] = useState(categoryArr[0].value);
 
     return (
         <label>
@@ -17,14 +37,14 @@ function category () {
             value = {category}
             onChange ={(e) => setCategory(e.target.value)}>
           
-            {categoryArr.map((level, index) =>(
+            {categoryArr.map((item, index) =>(
                 <option 
                     key={index} 
-                    value={level}
+                    value={item.value}
                     disabled={index==0}
                     hidden={index==0}
                 >
-                 {level}
+                 {item.label}
                 </option>
             ))}
           </select>
