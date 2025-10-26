@@ -2,10 +2,23 @@ import { useState } from "react";
 
 
 function weather () {
-    const weatherArr = ["בחר/ י", "שרב/ עומס חום", "שלג", "סופת חול" , "גשם" , "ערפל", "התקרחות", "ברד"
-    , "נאה" , "רוח" , "ים סוער", "מים שקטים"]
+    const weatherArr = [
+        { value: "", label: "בחר/י" },
+        { value: "heatwave", label: "שרב / עומס חום" },
+        { value: "snow", label: "שלג" },
+        { value: "sandstorm", label: "סופת חול" },
+        { value: "rain", label: "גשם" },
+        { value: "fog", label: "ערפל" },
+        { value: "ice", label: "התקרחות" },
+        { value: "hail", label: "ברד" },
+        { value: "clear", label: "נאה" },
+        { value: "wind", label: "רוח" },
+        { value: "rough_sea", label: "ים סוער" },
+        { value: "calm_water", label: "מים שקטים" }
+        ];
 
-    const [weather, setWeather] = useState(weatherArr[0]);
+
+    const [weather, setWeather] = useState(weatherArr[0].value);
 
     return(
         <label>
@@ -15,14 +28,14 @@ function weather () {
             value={weather}
             onChange={(e) => setWeather(e.target.value)}>
 
-            {weatherArr.map((level, index) =>(
+            {weatherArr.map((item, index) =>(
                 <option 
                     key={index}
-                    value={level}
+                    value={item.value}
                     disabled={index==0}
                     hidden={index==0}
                     >
-                {level}
+                {item.label}
                 </option>
             ))}
             </select>

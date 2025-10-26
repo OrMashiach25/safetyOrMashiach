@@ -2,9 +2,16 @@ import { useState } from "react";
 
 function unitActivityType() {
     
-    const unitActivityTypeArr = [ "בחר/י", 'תע"ם' , "אימונים", "הכשרה" , "רגיעה / מנהלה", "מלחמה/מבצע צבאי נרחב"];
+const unitActivityTypeArr = [
+  { value: "", label: "בחר/י" },
+  { value: "taam", label: "תע\"ם" },
+  { value: "training", label: "אימונים" },
+  { value: "course", label: "הכשרה" },
+  { value: "rest_admin", label: "רגיעה / מנהלה" },
+  { value: "war_operation", label: "מלחמה / מבצע צבאי נרחב" }
+];
 
-    const [unitActivity, setUnitActivity] = useState(unitActivityTypeArr[0]);
+    const [unitActivity, setUnitActivity] = useState(unitActivityTypeArr[0].value);
 
     return (
       <label>
@@ -14,14 +21,14 @@ function unitActivityType() {
           value = {unitActivity}
           onChange = {(e) => setUnitActivity(e.target.value)}>
         
-          {unitActivityTypeArr.map((level, index) => (
+          {unitActivityTypeArr.map((item, index) => (
             <option 
               key={index} 
-              value={level}
+              value={item.value}
               disabled={index==0}
               hidden={index==0}
               >
-              {level}
+              {item.label}
              </option>
            ))}
          </select>

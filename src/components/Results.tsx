@@ -1,12 +1,25 @@
 import { useState } from "react";
 
 function results() {
-    const resultsArr = ["בחר/י",` (א.נ.א.נ )אין נפגעים , אין נזק`,` (א.נ.י.נ )אין נפגעים , יש נזק`
-    ,` (י.נ.א.נ )יש נפגעים, אין נזק`,` (י.נ.י.נ )יש נפגעים, יש נזק`];
-    const injuriesLevelArr = ["בחר/י","ללא פגיעה","(פגוע קל )ללא אשפוז","(פגוע קל )שאושפז","פגוע בינוני "
-    ,"פגוע קשה/אנוש","חלל"];
+  const resultsArr = [
+    { value: "", label: "בחר/י" },
+    { value: "no_injury_no_damage", label: "(א.נ.א.נ) אין נפגעים, אין נזק" },
+    { value: "no_injury_with_damage", label: "(א.נ.י.נ) אין נפגעים, יש נזק" },
+    { value: "with_injury_no_damage", label: "(י.נ.א.נ) יש נפגעים, אין נזק" },
+    { value: "with_injury_with_damage", label: "(י.נ.י.נ) יש נפגעים, יש נזק" }
+  ];
 
-    const [results, setResults] = useState(resultsArr[0]);
+  const injuriesLevelArr = [
+    { value: "", label: "בחר/י" },
+    { value: "none", label: "ללא פגיעה" },
+    { value: "minor_no_hospital", label: "(פגוע קל) ללא אשפוז" },
+    { value: "minor_hospitalized", label: "(פגוע קל) שאושפז" },
+    { value: "moderate", label: "פגוע בינוני" },
+    { value: "severe", label: "פגוע קשה/אנוש" },
+    { value: "fatal", label: "חלל" }
+  ];
+
+    const [results, setResults] = useState(resultsArr[0].value);
 
     return(
         <>
@@ -16,14 +29,14 @@ function results() {
           value = {results}
           onChange ={(e) => setResults(e.target.value)}>
           
-          {resultsArr.map((level, index) =>(
+          {resultsArr.map((item, index) =>(
             <option 
               key={index} 
-              value={level}
+              value={item.value}
               disabled={index==0}
               hidden={index==0}
               >
-              {level}
+              {item.label}
             </option>
           ))}
           </select>
@@ -35,14 +48,14 @@ function results() {
           <label>
             חומרת הפציעה:
             <select>
-              {injuriesLevelArr.map((level, index) => (
+              {injuriesLevelArr.map((item, index) => (
                 <option 
                   key={index} 
-                  value={level}
+                  value={item.value}
                   disabled={index==0}
                   hidden={index==0}
                   >
-                  {level}
+                  {item.label}
                 </option>
               ))}
             </select>
