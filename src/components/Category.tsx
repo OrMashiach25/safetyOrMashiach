@@ -18,7 +18,12 @@ function category () {
             onChange ={(e) => setCategory(e.target.value)}>
           
             {categoryArr.map((level, index) =>(
-                <option key={index} value={level}>
+                <option 
+                    key={index} 
+                    value={level}
+                    disabled={index==0}
+                    hidden={index==0}
+                >
                  {level}
                 </option>
             ))}

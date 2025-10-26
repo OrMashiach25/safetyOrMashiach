@@ -14,7 +14,12 @@ function location () {
           onChange ={(e) => setLocation(e.target.value)}>
           
           {locationArr.map((level, index) =>(
-            <option key={index} value={level}>
+            <option 
+              key={index} 
+              value={level}
+              disabled={index==0}
+              hidden={index==0}
+              >
               {level}
             </option>
           ))}

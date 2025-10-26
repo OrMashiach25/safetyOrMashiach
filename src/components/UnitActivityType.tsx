@@ -15,7 +15,12 @@ function unitActivityType() {
           onChange = {(e) => setUnitActivity(e.target.value)}>
         
           {unitActivityTypeArr.map((level, index) => (
-            <option key={index} value={level}>
+            <option 
+              key={index} 
+              value={level}
+              disabled={index==0}
+              hidden={index==0}
+              >
               {level}
              </option>
            ))}
