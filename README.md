@@ -1,73 +1,62 @@
-# React + TypeScript + Vite
+# 🖥️ safetyOrMashiach
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+*safetyOrMashiach* is an educational full-stack training project built to demonstrate development skills using *React* and *TypeScript*.  
+The project focuses on creating a structured, and user-friendly interface with clean design and reusable components.  
+It was developed as part of a professional onboarding process for a *Full-Stack Developer* role.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Tech Stack
+- *Framework:* React  
+- *Language:* TypeScript  
+- *Styling:* CSS  
+- *Build Tool:* Vite  
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 📦 Installation
 
-## Expanding the ESLint configuration
+```bash
+# Clone the repository
+git clone https://github.com/OrMashiach25/safetyOrMashiach.git
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+# Move into the project directory
+cd safetyOrMashiach
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+# Install dependencies
+npm install
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+# Run in development mode
+npm run dev
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+# Build for production
+npm run build
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+# Preview the production build
+npm run preview
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+📁 Project Structure
+pgsql
+Copy code
+public/
+src/
+ ┣ components/       # Reusable UI components
+ ┣ App.tsx           # Root app component
+ ┣ index.css         # Global styles
+ ┗ main.tsx          # App entry point (creates React root)
+.gitignore
+README.md
+eslint.config.js
+index.html           # Vite HTML entry file
+package-lock.json
+package.json
+tsconfig.app.json
+tsconfig.json
+tsconfig.node.json
+vite.config.ts
+
+👨‍💻 Author
+
+Developed by Or Mashiach
+📍 Educational Full-Stack Project | 2025
