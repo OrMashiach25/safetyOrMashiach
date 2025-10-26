@@ -44,7 +44,7 @@ function results() {
 
         
         <br /><br />
-        {results.includes("יש נפגעים") &&  (
+        {results.includes("with_injury") &&  (
           <label>
             חומרת הפציעה:
             <select>
