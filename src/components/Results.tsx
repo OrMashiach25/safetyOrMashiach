@@ -10,9 +10,9 @@ function results() {
 
     return(
         <>
-         <label>
-          תוצאות האירוע:  
+         <label htmlFor="results"> תוצאות האירוע:</label>  
           <select
+          id="results"
           value = {results.value}
           onChange ={(e) => setResults({value: e.target.value, label: e.target.value})}>
           
@@ -27,13 +27,12 @@ function results() {
             </option>
           ))}
           </select>
-        </label>
-
+        
         
         <br /><br />
         {results.value.includes("with_injury") &&  (
-          <label>
-            חומרת הפציעה:
+          <>
+          <label htmlFor="activityType"> חומרת הפציעה:</label>
             <select>
               {injuriesLevelArr.map((item, index) => (
                 <option 
@@ -46,7 +45,7 @@ function results() {
                 </option>
               ))}
             </select>
-        </label>
+        </>
       )}
       </>
     );

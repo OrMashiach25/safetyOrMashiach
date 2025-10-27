@@ -8,12 +8,12 @@ function weather () {
     const [weather, setWeather] = useState<Option>(weatherArr[0]);
 
     return(
-        <label>
-            תנאים סביבתיים:
-            
+        <>
+        <label htmlFor="weather"> תנאים סבבתיים:</label> 
             <select
-            value={weather.value}
-            onChange={(e) => setWeather({value: e.target.value, label: e.target.value})}>
+                id="weather"
+                value={weather.value}
+                onChange={(e) => setWeather({value: e.target.value, label: e.target.value})}>
 
             {weatherArr.map((item, index) =>(
                 <option 
@@ -26,8 +26,7 @@ function weather () {
                 </option>
             ))}
             </select>
-        </label>
-
+        </>
     );
 }
 

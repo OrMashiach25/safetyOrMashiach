@@ -7,10 +7,10 @@ function location () {
     const [location, setLocation] = useState<Option>(locationArr[0]);
 
     return(
-      <label>
-        מקום האירוע:
-      
-        <select
+      <>
+      <label htmlFor="location"> מקום האירוע:</label>
+      <select
+          id="location"
           value = {location.value}
           onChange ={(e) => setLocation({value: e.target.value, label: e.target.value})}>
           
@@ -25,7 +25,7 @@ function location () {
             </option>
           ))}
           </select>
-      </label>
+      </>
     );
 }
 

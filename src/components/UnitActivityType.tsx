@@ -7,10 +7,10 @@ function unitActivityType() {
     const [unitActivity, setUnitActivity] = useState<Option>(unitActivityTypeArr[0]);
 
     return (
-      <label>
-        פעילות היחידה:
-      
+      <>
+      <label htmlFor="unitActivityType"> פעילות היחידה:</label>
         <select
+          id= "unitActivityType"
           value = {unitActivity.value}
           onChange = {(e) => setUnitActivity({value: e.target.value, label: e.target.value})}>
         
@@ -25,7 +25,7 @@ function unitActivityType() {
              </option>
            ))}
          </select>
-      </label>
+      </>
     );
 
 }

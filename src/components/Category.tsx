@@ -7,9 +7,10 @@ function category () {
     const [category, setCategory] = useState<Option>(categoryArr[0]);
 
     return (
-        <label>
-        מאפיין תחומי:
-         <select
+        <>
+        <label htmlFor="category"> מאפיין תחומי:</label>
+        <select
+            id = "category"
             value = {category.value}
             onChange ={(e) => setCategory({value: e.target.value, label: e.target.value})}>
           
@@ -20,11 +21,11 @@ function category () {
                     disabled={index==0}
                     hidden={index==0}
                 >
-                 {item.label}
+                {item.label}
                 </option>
             ))}
           </select>
-        </label>
+        </>
     );
 }
 

@@ -8,9 +8,10 @@ function eventSeverity() {
     const [eventSeverity, setEventSeverity] = useState<Option>(eventSeverityArr[0]);
 
     return(
-        <label>
-            חומרת האירוע: 
-            <select
+        <>
+        <label htmlFor="eventSeverity"> חומרת האירוע:</label>
+        <select
+            id="eventSeverity"
             value = {eventSeverity.value}
             onChange ={(e) => setEventSeverity({value: e.target.value, label: e.target.value})}>
             
@@ -25,7 +26,7 @@ function eventSeverity() {
                 </option>
             ))}
             </select>
-        </label>
+        </>
     );
 }
 
