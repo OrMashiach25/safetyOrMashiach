@@ -1,32 +1,19 @@
 import { useState } from "react";
+import { weatherArr} from "../Data";
+import type { Option } from "../Data";
 
 
 function weather () {
-    const weatherArr = [
-        { value: "", label: "בחר/י" },
-        { value: "heatwave", label: "שרב / עומס חום" },
-        { value: "snow", label: "שלג" },
-        { value: "sandstorm", label: "סופת חול" },
-        { value: "rain", label: "גשם" },
-        { value: "fog", label: "ערפל" },
-        { value: "ice", label: "התקרחות" },
-        { value: "hail", label: "ברד" },
-        { value: "clear", label: "נאה" },
-        { value: "wind", label: "רוח" },
-        { value: "rough_sea", label: "ים סוער" },
-        { value: "calm_water", label: "מים שקטים" }
-        ];
 
-
-    const [weather, setWeather] = useState(weatherArr[0].value);
+    const [weather, setWeather] = useState<Option>(weatherArr[0]);
 
     return(
         <label>
             תנאים סביבתיים:
             
             <select
-            value={weather}
-            onChange={(e) => setWeather(e.target.value)}>
+            value={weather.value}
+            onChange={(e) => setWeather({value: e.target.value, label: e.target.value})}>
 
             {weatherArr.map((item, index) =>(
                 <option 

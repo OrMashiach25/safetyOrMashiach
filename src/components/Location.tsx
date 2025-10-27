@@ -1,23 +1,18 @@
 import { useState } from "react";
+import { locationArr} from "../Data";
+import type { Option } from "../Data";
 
 function location () {
-    const locationArr = [
-      { value: "", label: "בחר/י" },
-      { value: "base", label: "בסיס" },
-      { value: "civilian_area", label: "שטח אזרחי" },
-      { value: "firing_zone", label: "שטח אש" },
-      { value: "dock", label: "רציף" }
-    ];
 
-    const [location, setLocation] = useState(locationArr[0].value);
+    const [location, setLocation] = useState<Option>(locationArr[0]);
 
     return(
       <label>
         מקום האירוע:
       
         <select
-          value = {location}
-          onChange ={(e) => setLocation(e.target.value)}>
+          value = {location.value}
+          onChange ={(e) => setLocation({value: e.target.value, label: e.target.value})}>
           
           {locationArr.map((item, index) =>(
             <option 

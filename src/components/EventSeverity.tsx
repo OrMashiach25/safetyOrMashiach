@@ -1,22 +1,18 @@
 import { useState } from "react";
+import { eventSeverityArr} from "../Data";
+import type { Option } from "../Data";
+
 
 function eventSeverity() {
-    const eventSeverityArr = [
-        {value:"", label:"בחר/י"},
-        {value:"low", label:"קל"},
-        {value:"medium", label:"בינוני"},
-        {value:"high", label:" חמור"}
-        ];
 
-    const [eventSeverity, setEventSeverity] = useState(eventSeverityArr[0].value);
+    const [eventSeverity, setEventSeverity] = useState<Option>(eventSeverityArr[0]);
 
     return(
         <label>
             חומרת האירוע: 
-            
             <select
-            value = {eventSeverity}
-            onChange ={(e) => setEventSeverity(e.target.value)}>
+            value = {eventSeverity.value}
+            onChange ={(e) => setEventSeverity({value: e.target.value, label: e.target.value})}>
             
             {eventSeverityArr.map((item, index) =>(
                 <option

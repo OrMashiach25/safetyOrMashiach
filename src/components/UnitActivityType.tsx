@@ -1,25 +1,18 @@
 import { useState } from "react";
+import { unitActivityTypeArr} from "../Data";
+import type { Option } from "../Data";
 
 function unitActivityType() {
-    
-const unitActivityTypeArr = [
-  { value: "", label: "בחר/י" },
-  { value: "taam", label: "תע\"ם" },
-  { value: "training", label: "אימונים" },
-  { value: "course", label: "הכשרה" },
-  { value: "rest_admin", label: "רגיעה / מנהלה" },
-  { value: "war_operation", label: "מלחמה / מבצע צבאי נרחב" }
-];
 
-    const [unitActivity, setUnitActivity] = useState(unitActivityTypeArr[0].value);
+    const [unitActivity, setUnitActivity] = useState<Option>(unitActivityTypeArr[0]);
 
     return (
       <label>
         פעילות היחידה:
       
         <select
-          value = {unitActivity}
-          onChange = {(e) => setUnitActivity(e.target.value)}>
+          value = {unitActivity.value}
+          onChange = {(e) => setUnitActivity({value: e.target.value, label: e.target.value})}>
         
           {unitActivityTypeArr.map((item, index) => (
             <option 

@@ -1,26 +1,17 @@
 import { useState } from "react";
+import { activityTypeArr} from "../Data";
+import type { Option } from "../Data";
 
 function activityType() {
 
-    const activityTypeArr = [
-        { value: "", label: "בחר/י" },
-        { value: "combat", label: "פעילות מבצעית/לחימה" },
-        { value: "training", label: "אימון" },
-        { value: "course", label: "הכשרה" },
-        { value: "routine", label: "שגרה" },
-        { value: "leisure", label: "פנאי" },
-        { value: "vacation", label: "חופשה" }
-        ];
-
-    const [activityType, setActivityType] = useState(activityTypeArr[0].value);
+    const [activityType, setActivityType] = useState<Option>(activityTypeArr[0]);
 
     return(
         <label>
         פעילות הפרט: 
-        
         <select
-            value={activityType}
-            onChange={(e) => setActivityType(e.target.value)}>
+            value={activityType.value}
+            onChange={(e) => setActivityType({value: e.target.value, label: e.target.value})}>
 
             {activityTypeArr.map((item, index) =>(
              <option 
@@ -33,7 +24,6 @@ function activityType() {
           </option>
           ))}
         </select>
-
         </label>
     );
 }

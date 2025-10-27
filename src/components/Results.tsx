@@ -1,33 +1,20 @@
 import { useState } from "react";
+import { resultsArr} from "../Data";
+import { injuriesLevelArr} from "../Data";
+import type { Option } from "../Data";
+
 
 function results() {
-  const resultsArr = [
-    { value: "", label: "בחר/י" },
-    { value: "no_injury_no_damage", label: "(א.נ.א.נ) אין נפגעים, אין נזק" },
-    { value: "no_injury_with_damage", label: "(א.נ.י.נ) אין נפגעים, יש נזק" },
-    { value: "with_injury_no_damage", label: "(י.נ.א.נ) יש נפגעים, אין נזק" },
-    { value: "with_injury_with_damage", label: "(י.נ.י.נ) יש נפגעים, יש נזק" }
-  ];
 
-  const injuriesLevelArr = [
-    { value: "", label: "בחר/י" },
-    { value: "none", label: "ללא פגיעה" },
-    { value: "minor_no_hospital", label: "(פגוע קל) ללא אשפוז" },
-    { value: "minor_hospitalized", label: "(פגוע קל) שאושפז" },
-    { value: "moderate", label: "פגוע בינוני" },
-    { value: "severe", label: "פגוע קשה/אנוש" },
-    { value: "fatal", label: "חלל" }
-  ];
-
-    const [results, setResults] = useState(resultsArr[0].value);
+    const [results, setResults] = useState<Option>(resultsArr[0]);
 
     return(
         <>
          <label>
           תוצאות האירוע:  
           <select
-          value = {results}
-          onChange ={(e) => setResults(e.target.value)}>
+          value = {results.value}
+          onChange ={(e) => setResults({value: e.target.value, label: e.target.value})}>
           
           {resultsArr.map((item, index) =>(
             <option 
@@ -44,7 +31,7 @@ function results() {
 
         
         <br /><br />
-        {results.includes("with_injury") &&  (
+        {results.value.includes("with_injury") &&  (
           <label>
             חומרת הפציעה:
             <select>
