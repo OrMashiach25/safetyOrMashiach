@@ -1,3 +1,4 @@
+import "./App.css";
 import UnitActivityType from "./components/UnitActivityType";
 import ActivityType from "./components/ActivityType";
 import Category from "./components/Category";
@@ -12,9 +13,9 @@ import DescriptionEvent from "./components/DescriptionEvent";
 
 function App() {
   return (
-    <div dir="rtl">
+    <div dir="rtl" className="from-container">
       <h1>טופס הזנת אירוע</h1>
-      <form>
+      <form className="event-form">
         <SubSubUnitInput/>
         <br /><br />
         <TimeAndDate/>

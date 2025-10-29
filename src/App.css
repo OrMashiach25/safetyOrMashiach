@@ -1,0 +1,11 @@
+.from-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.event-form{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
