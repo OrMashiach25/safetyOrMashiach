@@ -17,25 +17,15 @@ function App() {
       <h1>טופס הזנת אירוע</h1>
       <form className="event-form">
         <SubSubUnitInput/>
-        <br /><br />
         <TimeAndDate/>
-        <br /><br />
         <DescriptionEvent/>
-        <br /><br />
         <UnitActivityType/>
-        <br /><br />
         <ActivityType/>
-        <br /><br />
         <Category/>
-        <br /><br />
         <Location/>
-        <br /><br />       
         <EventSeverity/>
-        <br /><br />
         <Results/>
-        <br /><br />
         <Weather/>
-        <br /><br />
           
         <button type="submit">שליחה</button>
       </form>
