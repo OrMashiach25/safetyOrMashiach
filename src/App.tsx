@@ -12,10 +12,14 @@ import DescriptionEvent from "./components/DescriptionEvent";
 
 
 function App() {
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+  }
+
   return (
     <div dir="rtl" className="from-container">
       <h1>טופס הזנת אירוע</h1>
-      <form className="event-form">
+      <form className="event-form" onSubmit={handleSubmit}>
         <SubSubUnitInput/>
         <TimeAndDate/>
         <DescriptionEvent/>
@@ -26,8 +30,7 @@ function App() {
         <EventSeverity/>
         <Results/>
         <Weather/>
-          
-        <button type="submit">שליחה</button>
+        <button type="submit" >שליחה</button>
       </form>
     </div>
   );
