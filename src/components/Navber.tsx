@@ -10,7 +10,7 @@ function Navbar() {
         fontWeight: "bold",
         textAlign: "right",
         width: "100%",
-        marginBottom: "20px",
+        marginBottom: "10px",
       }}
     >
        טופס הזנת אירוע - מב"ט

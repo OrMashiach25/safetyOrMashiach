@@ -1,11 +1,16 @@
-.from-container {
+
+.from-container{
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    gap: 15px;
 }
-
 .event-form{
     display: flex;
-    flex-direction: column;
-    gap: 20px;
+    flex-wrap: wrap;
+    flex-direction: row;
+    gap: 15px;
+}
+label {
+  display: flex;
+  flex-direction: column;
 }

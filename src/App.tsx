@@ -20,7 +20,7 @@ function App() {
   return (
     <>
     <Navbar/>
-      <div dir="rtl" className="from-container">
+      <div dir="rtl">
         <form className="event-form" onSubmit={handleSubmit}>
           <TimeAndDate/>
           <SubSubUnitInput/>
@@ -32,8 +32,8 @@ function App() {
           <EventSeverity/>
           <Results/>
           <Weather/>
-          <button type="submit" >שליחה</button>
         </form>
+        <button type="submit" >שליחה</button>
       </div>
     </>
   );
