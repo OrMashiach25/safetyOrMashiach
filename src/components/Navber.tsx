@@ -13,7 +13,7 @@ function Navbar() {
         marginBottom: "20px",
       }}
     >
-       טוופס הזנת אירוע - מב"ט
+       טופס הזנת אירוע - מב"ט
     </nav>
   );
 }
