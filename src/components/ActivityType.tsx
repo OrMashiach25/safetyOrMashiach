@@ -18,7 +18,7 @@ function activityType() {
                         key={index}
                         value={item.value}
                         disabled={index==0}
-                        hidden={index==0}
+                        hidden={item.isDefault == true}
                     >
                 {item.label}
           </option>

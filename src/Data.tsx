@@ -1,10 +1,11 @@
 export interface Option{
     value: string;
     label: string;
+    isDefault?:boolean;
 }
 
 export const activityTypeArr: Option[] = [
-    { value: "", label: "בחר/י" },
+    { value: "", label: "בחר/י", isDefault: true },
     { value: "combat", label: "פעילות מבצעית/לחימה" },
     { value: "training", label: "אימון" },
     { value: "course", label: "הכשרה" },
@@ -14,7 +15,7 @@ export const activityTypeArr: Option[] = [
     ];
 
 export const categoryArr: Option[] = [
-    { value: "", label: "בחר/י" },
+    { value: "", label: "בחר/י", isDefault: true},
     { value: "weapons", label: "נשק ומקלעים" },
     { value: "roads", label: "דרכים" },
     { value: "ammo", label: "תחמושת" },
@@ -39,14 +40,14 @@ export const categoryArr: Option[] = [
     ];
 
 export const eventSeverityArr: Option[] = [
-    {value:"", label:"בחר/י"},
+    {value:"", label:"בחר/י", isDefault: true},
     {value:"low", label:"קל"},
     {value:"medium", label:"בינוני"},
     {value:"high", label:" חמור"}
     ];
 
 export const locationArr: Option[] = [
-    { value: "", label: "בחר/י" },
+    { value: "", label: "בחר/י", isDefault: true },
     { value: "base", label: "בסיס" },
     { value: "civilian_area", label: "שטח אזרחי" },
     { value: "firing_zone", label: "שטח אש" },
@@ -54,7 +55,7 @@ export const locationArr: Option[] = [
     ];
 
 export const resultsArr: Option[] = [
-    { value: "", label: "בחר/י" },
+    { value: "", label: "בחר/י", isDefault: true },
     { value: "no_injury_no_damage", label: "(א.נ.א.נ) אין נפגעים, אין נזק" },
     { value: "no_injury_with_damage", label: "(א.נ.י.נ) אין נפגעים, יש נזק" },
     { value: "with_injury_no_damage", label: "(י.נ.א.נ) יש נפגעים, אין נזק" },
@@ -62,7 +63,7 @@ export const resultsArr: Option[] = [
     ];
 
 export const injuriesLevelArr: Option[] = [
-    { value: "", label: "בחר/י" },
+    { value: "", label: "בחר/י", isDefault: true },
     { value: "none", label: "ללא פגיעה" },
     { value: "minor_no_hospital", label: "(פגוע קל) ללא אשפוז" },
     { value: "minor_hospitalized", label: "(פגוע קל) שאושפז" },
@@ -72,7 +73,7 @@ export const injuriesLevelArr: Option[] = [
     ];
 
 export const unitActivityTypeArr: Option[] = [
-  { value: "", label: "בחר/י" },
+  { value: "", label: "בחר/י", isDefault: true },
   { value: "taam", label: "תע\"ם" },
   { value: "training", label: "אימונים" },
   { value: "course", label: "הכשרה" },
@@ -81,7 +82,7 @@ export const unitActivityTypeArr: Option[] = [
 ];
 
 export const weatherArr: Option[] = [
-    { value: "", label: "בחר/י" },
+    { value: "", label: "בחר/י", isDefault: true },
     { value: "heatwave", label: "שרב / עומס חום" },
     { value: "snow", label: "שלג" },
     { value: "sandstorm", label: "סופת חול" },

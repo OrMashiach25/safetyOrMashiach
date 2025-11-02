@@ -20,7 +20,7 @@ function App() {
   return (
     <>
     <Navbar/>
-      <div dir="rtl">
+      <div dir="rtl" className="from-container">
         <form className="event-form" onSubmit={handleSubmit}>
           <TimeAndDate/>
           <SubSubUnitInput/>
