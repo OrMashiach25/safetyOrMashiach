@@ -1,5 +1,5 @@
 import "./App.css"; 
-import Navbar from "./components/Navber";
+import Navbar from "./components/NavbarComponents/Navber";
 import EventForm from "./components/EventForm";
 
 function App() {
