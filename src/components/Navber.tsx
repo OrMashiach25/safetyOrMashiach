@@ -1,3 +1,4 @@
+import NavbarButton from "./NavbarButton";
 
 function Navbar() {
   return (
@@ -11,9 +12,13 @@ function Navbar() {
         textAlign: "right",
         width: "100%",
         marginBottom: "10px",
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
       }}
     >
-       טופס הזנת אירוע - מב"ט
+      טופס הזנת אירוע - מב"ט
+      <NavbarButton text="סיכום אירועים" onClick={() => (window.location.href = "/new-page")} />
     </nav>
   );
 }
