@@ -1,20 +1,24 @@
-import { useState } from "react";
 import { weatherArr} from "../Data";
 import type { Option } from "../Data";
 
+type Props = {
+  value: Option; 
+  onChange: (v: Option) => void 
+};
 
-function weather () {
-
-    const [weather, setWeather] = useState<Option>(weatherArr[0]);
+function Weather ({value, onChange}: Props) {
 
     return(
         <>
         <label htmlFor="weather"> תנאים סבבתיים:</label> 
             <select
                 id="weather"
-                value={weather.value}
-                onChange={(e) => setWeather({value: e.target.value, label: e.target.value})}>
-
+                value={value.value}
+                onChange={(e) => {
+                    const selected = weatherArr.find(it => it.value === e.target.value);
+                    if (selected) onChange(selected);
+                }}
+        >
             {weatherArr.map((item, index) =>(
                 <option 
                     key={index}
@@ -30,4 +34,4 @@ function weather () {
     );
 }
 
-export default weather;
+export default Weather;

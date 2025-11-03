@@ -1,26 +1,30 @@
-import { useState } from "react";
-import { resultsArr} from "../Data";
-import { injuriesLevelArr} from "../Data";
+import { resultsArr, injuriesLevelArr} from "../Data";
 import type { Option } from "../Data";
 
+type Props = {
+  value: Option;                    
+  onChange: (v: Option) => void;    
+  injuryLevel: Option;             
+  onChangeInjury: (v: Option) => void; 
+};
 
-function results() {
-
-    const [results, setResults] = useState<Option>(resultsArr[0]);
-
+function Results({ value, onChange, injuryLevel, onChangeInjury }: Props) {
     return(
         <>
-         <label htmlFor="results"> תוצאות האירוע:</label>  
-          <select
+        <label htmlFor="results"> תוצאות האירוע:</label>  
+        <select
           id="results"
-          value = {results.value}
-          onChange ={(e) => setResults({value: e.target.value, label: e.target.value})}>
-          
+          value = {value.value}
+          onChange ={(e) => {
+          const selected = resultsArr.find(it => it.value === e.target.value);
+          if (selected) onChange(selected);
+        }}
+      >
           {resultsArr.map((item, index) =>(
             <option 
               key={index} 
               value={item.value}
-              disabled={index==0}
+              disabled={item.isDefault === true}
               hidden={item.isDefault == true}
               >
               {item.label}
@@ -28,12 +32,18 @@ function results() {
           ))}
           </select>
         
-        
-        <br /><br />
-        {results.value.includes("with_injury") &&  (
+        {value.value.includes("with_injury") &&  (
           <>
-          <label htmlFor="activityType"> חומרת הפציעה:</label>
-            <select>
+          <br /><br />
+          <label htmlFor="injuryLevel"> חומרת הפציעה:</label>
+            <select
+            id="injuryLevel"
+              value={injuryLevel.value}
+              onChange={(e) => {
+                const selected = injuriesLevelArr.find(it => it.value === e.target.value);
+                if (selected) onChangeInjury(selected);
+              }}
+            >
               {injuriesLevelArr.map((item, index) => (
                 <option 
                   key={index} 
@@ -51,4 +61,4 @@ function results() {
     );
 }
 
-export default results;
+export default Results;

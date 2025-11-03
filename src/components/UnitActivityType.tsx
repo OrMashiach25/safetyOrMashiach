@@ -1,19 +1,24 @@
-import { useState } from "react";
 import { unitActivityTypeArr} from "../Data";
 import type { Option } from "../Data";
 
-function unitActivityType() {
+type Props = {
+  value: Option; 
+  onChange: (v: Option) => void 
+};
 
-    const [unitActivity, setUnitActivity] = useState<Option>(unitActivityTypeArr[0]);
+function unitActivityType({value , onChange}: Props) {
 
     return (
       <>
       <label htmlFor="unitActivityType"> פעילות היחידה:</label>
         <select
           id= "unitActivityType"
-          value = {unitActivity.value}
-          onChange = {(e) => setUnitActivity({value: e.target.value, label: e.target.value})}>
-        
+          value = {value.value}
+          onChange ={(e) => {
+                  const selected = unitActivityTypeArr.find(it => it.value === e.target.value);
+                  if (selected) onChange(selected);
+              }}
+        >
           {unitActivityTypeArr.map((item, index) => (
             <option 
               key={index} 

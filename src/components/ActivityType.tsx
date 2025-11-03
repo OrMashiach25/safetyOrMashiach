@@ -1,18 +1,25 @@
-import { useState } from "react";
 import { activityTypeArr} from "../Data";
 import type { Option } from "../Data";
 
-function activityType() {
+type Props = {
+  value: Option; 
+  onChange: (v: Option) => void 
+};
 
-    const [activityType, setActivityType] = useState<Option>(activityTypeArr[0]);
+
+function ActivityType({value, onChange}: Props) {
+
     return(
         <>
         <label htmlFor="activityType"> פעילות הפרט:</label> 
             <select
                 id="activityType"
-                value={activityType.value}
-                onChange={(e) => setActivityType({value: e.target.value, label: e.target.value})}>
-
+                value={value.value}
+                onChange={(e) => {
+                    const selected = activityTypeArr.find(it => it.value === e.target.value);
+                    if (selected) onChange(selected);
+                }}
+            >
                 {activityTypeArr.map((item, index) =>(
                     <option 
                         key={index}
@@ -28,4 +35,4 @@ function activityType() {
     );
 }
 
-export default activityType;
+export default ActivityType;

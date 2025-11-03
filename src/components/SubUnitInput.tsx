@@ -1,22 +1,23 @@
 import { useState } from "react";
+type Props = {
+  value: string; 
+  onChange: (v: string) => void 
+};
 
-
-function subSubUnitInput () {
-    const [unit, setUnit ]= useState("");
+function subSubUnitInput ({value, onChange}: Props) {
     const [error, setError] = useState("");
 
     function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-        const value= e.target.value;
+        const neweValue= e.target.value;
         const regex = /^[א-תa-zA-Z\s-]*$/;
 
-        if (regex.test(value)){
-            setUnit(value);
+        if (regex.test(neweValue)){
+            onChange(neweValue);
             setError("");
         } else {
             setError ("ערך לא תקין");
         }
     }
-
 
     return(
         <label>
@@ -24,7 +25,7 @@ function subSubUnitInput () {
             <input 
             type="text" 
             placeholder="טקסט חופשי"
-            value={unit}
+            value={value}
             onChange={handleChange}
             />
             {error && <p style={{color:"red"}}>{error}</p>}

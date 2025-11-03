@@ -1,20 +1,24 @@
-import { useState } from "react";
 import { eventSeverityArr} from "../Data";
 import type { Option } from "../Data";
 
+type Props = {
+  value: Option; 
+  onChange: (v: Option) => void 
+};
 
-function eventSeverity() {
-
-    const [eventSeverity, setEventSeverity] = useState<Option>(eventSeverityArr[0]);
+function EventSeverity({value, onChange}: Props) {
 
     return(
         <>
         <label htmlFor="eventSeverity"> חומרת האירוע:</label>
         <select
             id="eventSeverity"
-            value = {eventSeverity.value}
-            onChange ={(e) => setEventSeverity({value: e.target.value, label: e.target.value})}>
-            
+            value = {value.value}
+            onChange ={(e) => {
+                const selected = eventSeverityArr.find(it => it.value === e.target.value);
+                if (selected) onChange(selected);
+            }}
+        >
             {eventSeverityArr.map((item, index) =>(
                 <option
                     key={index} 
@@ -30,4 +34,4 @@ function eventSeverity() {
     );
 }
 
-export default eventSeverity;
+export default EventSeverity;
