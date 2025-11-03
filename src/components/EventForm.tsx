@@ -10,6 +10,7 @@ import SubSubUnitInput from "./SubUnitInput";
 import TimeAndDate from "./TimeAndDate";
 import Weather from "./Weather";
 import UnitActivityType from "./UnitActivityType";
+import ObjectTable from "./ObjectTable";
 
 
 type FormData = {
@@ -52,65 +53,57 @@ function EventForm() {
     }
 
     return (
-    <form onSubmit={handleSubmit}>
-        <TimeAndDate
-        value={formData.timeDate}
-        onChange={(v: string) => updateField("timeDate", v)}
-        />
-        <LocationSelect
-        value={formData.location}
-        onChange={(v) => updateField("location", v)}
-        />
-        <ActivityType
-        value={formData.typeActivity}
-        onChange={(v) => updateField("typeActivity", v)}
-        />
-        <Category
-        value={formData.categoryoption}
-        onChange={(v) => updateField("categoryoption", v)}
-        />
-        <EventSeverity
-        value={formData.eventSeverity}
-        onChange={(v) => updateField("eventSeverity", v)}
-        />
-        <UnitActivityType
-        value={formData.typeUnitActivity}
-        onChange={(v) => updateField("typeUnitActivity", v)}
-        />
-        <Weather
-        value={formData.weather}
-        onChange={(v) => updateField("weather", v)}
-        />
-        <DescriptionEvent
-        value={formData.eventDescription}
-        onChange={(v) => updateField("eventDescription", v)}
-        />
-        <SubSubUnitInput
-        value={formData.subSubUnitInput}
-        onChange={(v) => updateField("subSubUnitInput", v)}
-        />
-        <Results
-        value={formData.results}
-        onChange={(v) => updateField("results", v)}
-        injuryLevel={formData.injuryLevel}
-        onChangeInjury={(v) => updateField("injuryLevel", v)}
-        />
+        <>
+            <form onSubmit={handleSubmit}>
+                <TimeAndDate
+                value={formData.timeDate}
+                onChange={(v: string) => updateField("timeDate", v)}
+                />
+                <LocationSelect
+                value={formData.location}
+                onChange={(v) => updateField("location", v)}
+                />
+                <ActivityType
+                value={formData.typeActivity}
+                onChange={(v) => updateField("typeActivity", v)}
+                />
+                <Category
+                value={formData.categoryoption}
+                onChange={(v) => updateField("categoryoption", v)}
+                />
+                <EventSeverity
+                value={formData.eventSeverity}
+                onChange={(v) => updateField("eventSeverity", v)}
+                />
+                <UnitActivityType
+                value={formData.typeUnitActivity}
+                onChange={(v) => updateField("typeUnitActivity", v)}
+                />
+                <Weather
+                value={formData.weather}
+                onChange={(v) => updateField("weather", v)}
+                />
+                <DescriptionEvent
+                value={formData.eventDescription}
+                onChange={(v) => updateField("eventDescription", v)}
+                />
+                <SubSubUnitInput
+                value={formData.subSubUnitInput}
+                onChange={(v) => updateField("subSubUnitInput", v)}
+                />
+                <Results
+                value={formData.results}
+                onChange={(v) => updateField("results", v)}
+                injuryLevel={formData.injuryLevel}
+                onChangeInjury={(v) => updateField("injuryLevel", v)}
+                />
 
-
-        <button type="submit">שליחה</button>
-        <pre>{JSON.stringify(allEvents, null, 2)}</pre>
-    </form>
+                <button type="submit">שליחה</button>
+            </form>
+            <ObjectTable allEvents={allEvents} />
+        </>
     );
 
 }
 
 export default EventForm;
-
-
-
-
-
-
-
-    
-  
