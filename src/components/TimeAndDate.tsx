@@ -6,15 +6,17 @@ type Props = {
 
 function TimeAndDate({value, onChange}: Props) {
     return(
-      <label>
-        תאריך ושעה:
+      <div>
+          <label>
+            תאריך ושעה:
+          </label>
         <input 
         type="datetime-local" 
         value={value}
         max={new Date().toISOString().slice(0,16)}
         onChange={(e) => onChange(e.target.value)}
         />
-      </label>
+      </div>
     );
 }
 export default TimeAndDate;

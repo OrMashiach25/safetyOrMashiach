@@ -27,6 +27,7 @@ type FormData = {
 }
 
 function EventForm() {
+    const [allEvents, setAllEvents] = useState<FormData[]>([]);
     const [formData, setFormData] = useState<FormData>({
     typeActivity:{ value: "", label: "בחר/י" },
     categoryoption:{ value: "", label: "בחר/י" },
@@ -47,6 +48,7 @@ function EventForm() {
     function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
         console.log("Submitting:", formData);
+        setAllEvents(prev => [...prev, formData]);
     }
 
     return (
@@ -96,6 +98,7 @@ function EventForm() {
 
 
         <button type="submit">שליחה</button>
+        <pre>{JSON.stringify(allEvents, null, 2)}</pre>
     </form>
     );
 
