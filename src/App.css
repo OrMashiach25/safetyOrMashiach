@@ -23,15 +23,15 @@ form button {
 .events-table {
   width: 100%;
   border-collapse: collapse;
-  table-layout: fixed;
+  /* table-layout: fixed; */ 
 }
 .events-table th, .events-table td {
-  border: 1px solid #ddd;
+  border: 2px solid #000000;
   padding: 8px;
   vertical-align: top;
   word-break: break-word;
 }
 .events-table thead th {
-  background: #f5f5f5;
+  background: #f7ecec;
   font-weight: 600;
 }

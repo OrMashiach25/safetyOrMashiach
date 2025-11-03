@@ -50,6 +50,20 @@ function EventForm() {
         e.preventDefault();
         console.log("Submitting:", formData);
         setAllEvents(prev => [...prev, formData]);
+        setFormData({
+        typeActivity:{ value: "", label: "בחר/י" },
+        categoryoption:{ value: "", label: "בחר/י" },
+        eventDescription:"", 
+        eventSeverity:{ value: "", label: "בחר/י" },
+        location:{ value: "", label: "בחר/י" },
+        results:{ value: "", label: "בחר/י" },
+        injuryLevel:{ value: "", label: "בחר/י" },
+        subSubUnitInput: "",
+        timeDate:"",
+        weather:{ value: "", label: "בחר/י" },
+        typeUnitActivity:{ value: "", label: "בחר/י" }
+        });
+
     }
 
     return (
