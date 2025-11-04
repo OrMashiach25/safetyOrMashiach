@@ -47,16 +47,12 @@
   font-weight: bold;
 }
 
-form button {
-  display: block;
-  margin-top: 20px;
-}
-
 .events-table {
   width: 100%;
-  border-collapse: collapse;
-  /* table-layout: fixed; */ 
+  border-collapse: collapse; 
 }
+
+
 .events-table th, .events-table td {
   border: 2px solid #000000;
   padding: 8px;
@@ -65,5 +61,5 @@ form button {
 }
 .events-table thead th {
   background: #f7ecec;
-  font-weight: 600;
+  font-weight: bold;
 }
