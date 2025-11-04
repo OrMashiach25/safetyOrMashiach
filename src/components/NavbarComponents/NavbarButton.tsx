@@ -1,7 +1,7 @@
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 
-type Props = { text: string; };
+type Props = { text: string; onClick?: () => void;};
 
 function NavbarButton({ text }: Props) {
   const navigate = useNavigate();
