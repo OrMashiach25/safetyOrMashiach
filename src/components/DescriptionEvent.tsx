@@ -18,12 +18,12 @@ function DescriptionEvent ({value, onChange}: Props) {
             label= "תיאור האירוע:"
             variant = "outlined"
             multiline
-            rows = {3}
+            rows = {2}
             placeholder="עד 800 תווים" 
             value={value}
             onChange={handleChange}
-            fullWidth
-            sx={{ display: "block",mt: 2,maxWidth: 250}}
+            
+            sx={{ width: 300}}
             slotProps={{
                 input: { dir: "rtl", style: { textAlign: "right" } },
             }}
