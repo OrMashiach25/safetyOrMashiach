@@ -6,7 +6,7 @@ function Navbar() {
       style={{
         backgroundColor: "#1976d2",
         color: "white",
-        padding: "20px",
+        padding: "20px 20px",
         fontSize: "20px",
         fontWeight: "bold",
         textAlign: "right",

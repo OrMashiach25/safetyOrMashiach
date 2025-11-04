@@ -8,11 +8,35 @@
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
+    justify-content: space-between;
     gap: 15px;
 }
-label {
-  display: flex;
-  flex-direction: column;
+
+/* ליישר תווית מימין ולטפל במיקום כשהיא "מתכווצת" לאאוטליין */
+.MuiInputLabel-root {
+  right: 0;
+  left: auto;
+  direction: rtl;
+  text-align: right;
+  transform-origin: right top;
+}
+
+/* מצב רגיל (לפני הקטנה) */
+.MuiInputLabel-root.MuiInputLabel-formControl {
+  transform: translate(-8px, 8px) scale(1);
+}
+
+/* מצב "מכווץ" בתוך המסגרת */
+.MuiInputLabel-root.MuiInputLabel-shrink {
+  transform: translate(48px, -9px) scale(0.75);
+}
+
+/* לוודא שהנוץ' (החריץ) מתחיל מימין */
+.MuiOutlinedInput-root {
+  direction: rtl;
+}
+.MuiOutlinedInput-root fieldset legend {
+  text-align: right;
 }
 
 form button {

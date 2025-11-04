@@ -41,7 +41,8 @@ function ObjectTable({ allEvents }: Props) {
       <tbody>
         {allEvents.map((event, i) => (
           <tr key={i}>
-            <td>{i + 1}</td>
+            <td style={{textAlign : "center"}}>
+              {i + 1}</td>
             <td>{event.timeDate}</td>
             <td>{event.location?.label}</td>
             <td>{event.typeActivity?.label}</td>
@@ -52,7 +53,11 @@ function ObjectTable({ allEvents }: Props) {
             <td>{event.eventDescription}</td>
             <td>{event.subSubUnitInput}</td>
             <td>{event.results?.label}</td>
-            <td>{event.injuryLevel?.label}</td>
+            <td style={{ textAlign: event.injuryLevel?.label !== "בחר/י" ? "right" : "center" }}>
+              {event.injuryLevel?.label && event.injuryLevel.label !== "בחר/י"
+                ? event.injuryLevel.label
+                : "-"}
+            </td>
           </tr>
         ))}
       </tbody>
