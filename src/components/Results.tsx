@@ -35,7 +35,7 @@ function Results({ value, onChange, injuryLevel, onChangeInjury }: Props) {
         {value.value.includes("with_injury") &&  (
           <>
           <br /><br />
-          <label htmlFor="injuryLevel"> חומרת הפציעה:</label>
+          <label htmlFor="injuryLevel"> חומרת הפגיעה:</label>
             <select
             id="injuryLevel"
               value={injuryLevel.value}

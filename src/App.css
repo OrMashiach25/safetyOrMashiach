@@ -48,10 +48,10 @@
 }
 
 .events-table {
-  width: 100%;
+  width: 99%;
   border-collapse: collapse; 
+  table-layout: fixed;
 }
-
 
 .events-table th, .events-table td {
   border: 2px solid #000000;
@@ -59,7 +59,10 @@
   vertical-align: top;
   word-break: break-word;
 }
+
 .events-table thead th {
+  text-align: right;
+  vertical-align: middle;
   background: #f7ecec;
   font-weight: bold;
 }

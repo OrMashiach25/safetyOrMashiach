@@ -27,15 +27,10 @@ function NewPage() {
     navigate(-1);
   }
 
-  if (!allEvents.length){
-    return <div dir="rtl">אין נתונים להצגה.</div>
-  }
-
-
   return (
     <div dir="rtl" style={{ textAlign: "center", marginTop: "5px" }}>
         
-        <Button 
+      <Button 
         variant="contained" 
         color="primary" 
         onClick={goBack}
@@ -50,7 +45,6 @@ function NewPage() {
       <h2> טבלת סיכום אירועים</h2>
       <ObjectTable allEvents={allEvents}/>
 
-    
     </div>
   );
 }

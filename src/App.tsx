@@ -11,8 +11,6 @@ function App() {
     </Router>
   );
 }
-
-
 function AppContent() {
   
   return (
