@@ -1,4 +1,4 @@
-import Button from "@mui/material/Button";
+/*import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 
 type Props = { text: string; onClick?: () => void;};
@@ -18,3 +18,4 @@ function NavbarButton({ text }: Props) {
 }
 
 export default NavbarButton;
+*/

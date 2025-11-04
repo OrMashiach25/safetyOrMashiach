@@ -1,5 +1,7 @@
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import type { Option } from "../Data";
+import { Button } from "@mui/material";
 import ActivityType from "./ActivityType";
 import Category from "./Category";
 import DescriptionEvent from "./DescriptionEvent";
@@ -10,7 +12,6 @@ import SubSubUnitInput from "./SubUnitInput";
 import TimeAndDate from "./TimeAndDate";
 import Weather from "./Weather";
 import UnitActivityType from "./UnitActivityType";
-import ObjectTable from "./ObjectTable";
 
 type FormData = {
     typeActivity: Option;
@@ -27,7 +28,9 @@ type FormData = {
 }
 
 function EventForm() {
-    const [allEvents, setAllEvents] = useState<FormData[]>([]);
+
+    const navigate = useNavigate();
+    
     const [formData, setFormData] = useState<FormData>({
     typeActivity:{ value: "", label: "בחר/י" },
     categoryoption:{ value: "", label: "בחר/י" },
@@ -44,9 +47,12 @@ function EventForm() {
 
     const [errorMessage, setErrorMessage] = useState<string>("");
 
+    const [allEvents, setAllEnets] = useState<FormData[]>([]);
+
     function updateField<K extends keyof FormData>(key: K, value: FormData[K]) {
         setFormData(prev => ({ ...prev, [key]: value }));
     }
+
     function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
         
@@ -66,9 +72,11 @@ function EventForm() {
             setErrorMessage("אנא מלא את כל פרטי הטופס")
             return;
         }
-
         setErrorMessage("");
-        setAllEvents(prev => [...prev, formData]);
+        
+        setAllEnets(prev => [...prev, formData] );
+        
+
         setFormData({
         typeActivity:{ value: "", label: "בחר/י" },
         categoryoption:{ value: "", label: "בחר/י" },
@@ -82,7 +90,10 @@ function EventForm() {
         weather:{ value: "", label: "בחר/י" },
         typeUnitActivity:{ value: "", label: "בחר/י" }
         });
+    }
 
+    function goToTable() {
+        navigate ("/page1", {state: {allEvents}});
     }
 
     return (
@@ -132,11 +143,24 @@ function EventForm() {
                     onChange={(v) => updateField("eventDescription", v)}
                     />
                 </div>
+
                 {errorMessage && <div className="form-error">{errorMessage}</div>}
-                <button type="submit">שליחה</button>
+                
+                <div style={{display: "flex", gap: 12,marginTop:12 }}>
+                    <Button type="submit" variant="contained" color="primary">
+                        הוסף אירוע
+                    </Button>
+
+                    <Button
+                        type= "button"
+                        variant="outlined"
+                        onClick={goToTable}
+                        disabled={allEvents.length === 0}
+                    >
+                        צפה בטבלה
+                    </Button>
+                </div>
             </form>
-            
-            <ObjectTable allEvents={allEvents} />
         </>
     );
 

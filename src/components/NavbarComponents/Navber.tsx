@@ -1,10 +1,5 @@
-import NavbarButton from "./NavbarButton";
 
-type NavbarProps = {
-  showButton?: boolean;
-};
-
-function Navbar({ showButton = true }: NavbarProps) {
+function Navbar() {
   return (
     <nav
       style={{
@@ -22,11 +17,6 @@ function Navbar({ showButton = true }: NavbarProps) {
       }}
     >
       טופס הזנת אירוע - מב"ט
-      {showButton && (
-        <NavbarButton text="סיכום אירועים" 
-        onClick={() => (window.location.href = "/page1")} />
-      )}
-      
     </nav>
   );
 }
