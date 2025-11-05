@@ -20,16 +20,16 @@ function subSubUnitInput ({value, onChange}: Props) {
     }
 
     return(
-        <label>
-            יחידות משנה:
+        <> 
+            <label> יחידות משנה:</label>
             <input 
-            type="text" 
-            placeholder="טקסט חופשי"
-            value={value}
-            onChange={handleChange}
+                type="text" 
+                placeholder="טקסט חופשי"
+                value={value}
+                onChange={handleChange}
             />
             {error && <p style={{color:"red"}}>{error}</p>}
-        </label>
+        </> 
     );
 }
 

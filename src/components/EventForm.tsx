@@ -100,48 +100,74 @@ function EventForm() {
         <>
             <form onSubmit={handleSubmit}>
                 <div className="event-form">
-                    <TimeAndDate
-                    value={formData.timeDate}
-                    onChange={(v: string) => updateField("timeDate", v)}
-                    />
-                    <LocationSelect
-                    value={formData.location}
-                    onChange={(v) => updateField("location", v)}
-                    />
-                    <ActivityType
-                    value={formData.typeActivity}
-                    onChange={(v) => updateField("typeActivity", v)}
-                    />
-                    <Category
-                    value={formData.categoryoption}
-                    onChange={(v) => updateField("categoryoption", v)}
-                    />
-                    <EventSeverity
-                    value={formData.eventSeverity}
-                    onChange={(v) => updateField("eventSeverity", v)}
-                    />
-                    <UnitActivityType
-                    value={formData.typeUnitActivity}
-                    onChange={(v) => updateField("typeUnitActivity", v)}
-                    />
-                    <Weather
-                    value={formData.weather}
-                    onChange={(v) => updateField("weather", v)}
-                    />
-                    <SubSubUnitInput
-                    value={formData.subSubUnitInput}
-                    onChange={(v) => updateField("subSubUnitInput", v)}
-                    />
-                    <Results
-                    value={formData.results}
-                    onChange={(v) => updateField("results", v)}
-                    injuryLevel={formData.injuryLevel}
-                    onChangeInjury={(v) => updateField("injuryLevel", v)}
-                    />
-                    <DescriptionEvent
-                    value={formData.eventDescription}
-                    onChange={(v) => updateField("eventDescription", v)}
-                    />
+                    <div className="field">
+                        <TimeAndDate
+                    
+                        value={formData.timeDate}
+                        onChange={(v: string) => updateField("timeDate", v)}
+                        />
+                    </div>
+
+                    <div className="field">
+                        <LocationSelect
+                        value={formData.location}
+                        onChange={(v) => updateField("location", v)}
+                        />
+                    </div>
+                    <div className="field">
+                        <ActivityType
+                        value={formData.typeActivity}
+                        onChange={(v) => updateField("typeActivity", v)}
+                        />
+                    </div>
+                    <div className="field">
+                        <Category
+                        value={formData.categoryoption}
+                        onChange={(v) => updateField("categoryoption", v)}
+                        />
+                    </div>
+                    <div className="field">
+                        <EventSeverity
+                        value={formData.eventSeverity}
+                        onChange={(v) => updateField("eventSeverity", v)}
+                        />
+                    </div>
+                    <div className="field">
+                        <UnitActivityType
+                        value={formData.typeUnitActivity}
+                        onChange={(v) => updateField("typeUnitActivity", v)}
+                        />
+                    </div>
+                    <div className="field">
+                        <Weather
+                        value={formData.weather}
+                        onChange={(v) => updateField("weather", v)}
+                        />
+                    </div>
+                    <div className="field">
+                        <SubSubUnitInput
+                        value={formData.subSubUnitInput}
+                        onChange={(v) => updateField("subSubUnitInput", v)}
+                        />
+                    </div>
+                    <div className="field">
+                        <Results
+                        value={formData.results}
+                        onChange={(v) => updateField("results", v)}
+                        injuryLevel={formData.injuryLevel}
+                        onChangeInjury={(v) => updateField("injuryLevel", v)}
+                        />
+                    </div>
+                    <div className="field">
+                        <DescriptionEvent
+                        value={formData.eventDescription}
+                        onChange={(v) => updateField("eventDescription", v)}
+                        />
+                    </div>
+
+
+
+
                 </div>
 
                 {errorMessage && <div className="form-error">{errorMessage}</div>}

@@ -14,7 +14,7 @@ function App() {
 function AppContent() {
   
   return (
-    <div dir="rtl" className="from-container">
+    <div dir="rtl" className="HomePage">
       <Navbar/>
           <Routes>
             <Route path="/" element= {<EventForm/>} />
