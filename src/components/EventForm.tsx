@@ -12,6 +12,9 @@ import SubSubUnitInput from "./InputComponents/SubUnitInput";
 import TimeAndDate from "./InputComponents/TimeAndDate";
 import Weather from "./InputComponents/Weather";
 import UnitActivityType from "./InputComponents/UnitActivityType";
+import { MuiErorrAlert } from "./MuiErrorAlert";
+ 
+
 
 type FormData = {
     typeActivity: Option;
@@ -165,12 +168,9 @@ function EventForm() {
                         />
                     </div>
 
-
-
-
                 </div>
 
-                {errorMessage && <div className="form-error">{errorMessage}</div>}
+                {errorMessage && <MuiErorrAlert message={errorMessage}/>}
                 
                 <div style={{display: "flex", gap: 12,marginTop:12 }}>
                     <Button type="submit" variant="contained" color="primary">
