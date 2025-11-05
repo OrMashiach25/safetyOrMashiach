@@ -83,3 +83,20 @@
   background: #f7ecec;
   font-weight: bold;
 }
+
+
+.dark .events-table,
+.dark .events-table th,
+.dark .events-table td {
+  background: #2b2c2d;      /* רקע לבן */
+  color: #c1bfbd;           /* טקסט שחור */
+  border-color: #7e776c;
+}
+
+.dark .events-table thead th {
+  background-color: #3c2828;
+}
+
+.dark .arrow-button {
+  color: #ffff;
+}

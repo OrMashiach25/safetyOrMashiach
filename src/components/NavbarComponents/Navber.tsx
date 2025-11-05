@@ -1,5 +1,13 @@
+import IconButton from "@mui/material/IconButton";
+import DarkModeIcon from "@mui/icons-material/DarkMode";
+import LightModeIcon from "@mui/icons-material/LightMode";
 
-function Navbar() {
+type Props = {
+  mode: "light" | "dark";
+  toggleMode: () => void;
+};
+
+function Navbar({ mode, toggleMode }: Props) {
   return (
     <nav
       style={{
@@ -17,6 +25,10 @@ function Navbar() {
       }}
     >
       טופס הזנת אירוע - מב"ט
+
+      <IconButton onClick={toggleMode} style={{ color: "white" }}>
+        {mode === "light" ? <DarkModeIcon /> : <LightModeIcon />}
+      </IconButton>
     </nav>
   );
 }

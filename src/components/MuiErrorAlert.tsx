@@ -1,9 +1,14 @@
 import { Stack ,Alert} from "@mui/material"
 
-export const MuiErorrAlert = () => {
+
+type Props = {
+    message: string;
+};
+
+export const MuiErorrAlert = ({ message }: Props) => {
     return(
         <Stack spacing={2} > 
-            <Alert severity='error'>אנא מלא את כל פרטי הטופס  </Alert>
+            <Alert severity='error'>{message}</Alert>
         </Stack>
-    )
-}
+    );
+};
