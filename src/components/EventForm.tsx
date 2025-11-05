@@ -2,16 +2,16 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import type { Option } from "../Data";
 import { Button } from "@mui/material";
-import ActivityType from "./ActivityType";
-import Category from "./Category";
-import DescriptionEvent from "./DescriptionEvent";
-import EventSeverity from "./EventSeverity";
-import LocationSelect from "./Location";
-import Results from "./Results";
-import SubSubUnitInput from "./SubUnitInput";
-import TimeAndDate from "./TimeAndDate";
-import Weather from "./Weather";
-import UnitActivityType from "./UnitActivityType";
+import ActivityType from "./InputComponents/ActivityType";
+import Category from "./InputComponents/Category";
+import DescriptionEvent from "./InputComponents/DescriptionEvent";
+import EventSeverity from "./InputComponents/EventSeverity";
+import LocationSelect from "./InputComponents/Location";
+import Results from "./InputComponents/Results";
+import SubSubUnitInput from "./InputComponents/SubUnitInput";
+import TimeAndDate from "./InputComponents/TimeAndDate";
+import Weather from "./InputComponents/Weather";
+import UnitActivityType from "./InputComponents/UnitActivityType";
 
 type FormData = {
     typeActivity: Option;

@@ -1,5 +1,5 @@
-import { resultsArr, injuriesLevelArr} from "../Data";
-import type { Option } from "../Data";
+import { resultsArr, injuriesLevelArr} from "../../Data";
+import type { Option } from "../../Data";
 
 type Props = {
   value: Option;                    

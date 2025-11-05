@@ -1,5 +1,5 @@
-import { categoryArr} from "../Data";
-import type { Option } from "../Data";
+import { categoryArr} from "../../Data";
+import type { Option } from "../../Data";
 
 type Props = {
   value: Option; 

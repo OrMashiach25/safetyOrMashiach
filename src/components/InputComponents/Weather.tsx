@@ -1,5 +1,5 @@
-import { weatherArr} from "../Data";
-import type { Option } from "../Data";
+import { weatherArr} from "../../Data";
+import type { Option } from "../../Data";
 
 type Props = {
   value: Option; 

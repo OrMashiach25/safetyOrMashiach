@@ -1,6 +1,6 @@
 
-import { locationArr} from "../Data";
-import type { Option } from "../Data";
+import { locationArr} from "../../Data";
+import type { Option } from "../../Data";
 
 type Props = {
   value: Option; 

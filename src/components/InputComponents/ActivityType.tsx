@@ -1,5 +1,5 @@
-import { activityTypeArr} from "../Data";
-import type { Option } from "../Data";
+import { activityTypeArr} from "../../Data";
+import type { Option } from "../../Data";
 
 type Props = {
   value: Option; 

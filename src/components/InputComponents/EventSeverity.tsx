@@ -1,5 +1,5 @@
-import { eventSeverityArr} from "../Data";
-import type { Option } from "../Data";
+import { eventSeverityArr} from "../../Data";
+import type { Option } from "../../Data";
 
 type Props = {
   value: Option; 

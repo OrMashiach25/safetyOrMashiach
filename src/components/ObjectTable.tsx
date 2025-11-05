@@ -72,10 +72,7 @@ function ObjectTable({ allEvents }: Props) {
   }, [allEvents, sortKey, sortDir]);
 
   // קומפוננטה קטנה לכותרת עם חצים
-  const TH = ({
-    label,
-    col,
-  }: {
+  const TH = ({label,col}: {
     label: string;
     col: ColKey;
   }) => (
@@ -94,7 +91,6 @@ function ObjectTable({ allEvents }: Props) {
               padding: 0,
               cursor: "pointer",
               fontSize: 12,
-              fontWeight: sortKey === col && sortDir === "asc" ? 700 : 400,
             }}
           >
             ↑
@@ -109,7 +105,6 @@ function ObjectTable({ allEvents }: Props) {
               padding: 0,
               cursor: "pointer",
               fontSize: 12,
-              fontWeight: sortKey === col && sortDir === "desc" ? 700 : 400,
             }}
           >
             ↓
