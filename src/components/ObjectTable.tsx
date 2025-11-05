@@ -30,13 +30,33 @@ type ColKey =
   | "results"
   | "injuryLevel";
 
+type SortDir = "asc" | "desc";
+type Column = {
+  header: string;
+  key?: ColKey;        
+  sortable?: boolean;  
+  isIndex?: boolean;  
+};
+
+const COLUMNS: Column[] = [
+  { header: "#", isIndex: true },
+  { header: "תאריך ושעה", key: "timeDate", sortable: true },
+  { header: "מיקום", key: "location", sortable: true },
+  { header: "פעילות הפרט", key: "typeActivity", sortable: true },
+  { header: "קטגוריה", key: "categoryoption", sortable: true },
+  { header: "חומרת האירוע", key: "eventSeverity", sortable: true },
+  { header: "פעילות היחידה", key: "typeUnitActivity", sortable: true },
+  { header: "מזג אוויר", key: "weather", sortable: true },
+  { header: "תיאור האירוע", key: "eventDescription" }, // ללא מיון
+  { header: "יחידות משנה", key: "subSubUnitInput" },   // ללא מיון
+  { header: "תוצאות", key: "results", sortable: true },
+  { header: "חומרת הפגיעה", key: "injuryLevel", sortable: true },
+];
+
 function ObjectTable({ allEvents }: Props) {
-  
-  type SortDir = "asc" | "desc";
   const [sortKey, setSortKey] = useState<ColKey | null>(null);
   const [sortDir, setSortDir] = useState<SortDir>("asc");
 
-  // להוציא מחרוזת להשוואה (כולל Option עם label/value)
   function getVal(row: FormData, key: ColKey): string {
     const v: any = row[key as keyof FormData];
     if (v == null) return "";
@@ -58,105 +78,97 @@ function ObjectTable({ allEvents }: Props) {
       const va = getVal(a, sortKey);
       const vb = getVal(b, sortKey);
 
-      // תאריך/שעה
       if (sortKey === "timeDate") {
         const da = Date.parse(va);
         const db = Date.parse(vb);
         return sortDir === "asc" ? da - db : db - da;
       }
 
-      // טקסט (כולל עברית)
       const cmp = va.localeCompare(vb, "he");
       return sortDir === "asc" ? cmp : -cmp;
     });
   }, [allEvents, sortKey, sortDir]);
 
-  // קומפוננטה קטנה לכותרת עם חצים
-  const TH = ({label,col}: {
-    label: string;
-    col: ColKey;
-  }) => (
-    <th>
-      <span style={{ display: "inline-flex", gap: 3, alignItems: "center" }}>
-        {label}
-        <span style={{ display: "inline-flex", flexDirection: "row", gap: 6, alignItems: "center" }}>
-
-          <button
-            type="button"
-            onClick={() => sortBy(col, "asc")}
-            title="מיין ↑"
-            style={{
-              border: "none",
-              background: "transparent",
-              padding: 0,
-              cursor: "pointer",
-              fontSize: 12,
-            }}
-          >
-            ↑
-          </button>
-          <button
-            type="button"
-            onClick={() => sortBy(col, "desc")}
-            title="מיין ↓"
-            style={{
-              border: "none",
-              background: "transparent",
-              padding: 0,
-              cursor: "pointer",
-              fontSize: 12,
-            }}
-          >
-            ↓
-          </button>
-        </span>
-      </span>
-    </th>
-  );
-
-  return (
+return (
     <table className="events-table" dir="rtl">
       <thead>
         <tr>
-          <th>#</th>
-          <TH label="תאריך ושעה" col="timeDate" />
-          <TH label="מיקום" col="location" />
-          <TH label="פעילות הפרט" col="typeActivity" />
-          <TH label="קטגוריה" col="categoryoption" />
-          <TH label="חומרת האירוע" col="eventSeverity" />
-          <TH label="פעילות היחידה" col="typeUnitActivity" />
-          <TH label="מזג אוויר" col="weather" />
-          <th>תיאור האירוע</th>
-          <th>יחידות משנה</th>
-          <TH label="תוצאות" col="results" />
-          <TH label="חומרת הפגיעה" col="injuryLevel" />
+          {COLUMNS.map((col, idx) => (
+            <th key={idx}>
+              <span style={{ display: "inline-flex", gap: 3, alignItems: "center" }}>
+                {col.header}
+                {col.sortable && col.key && (
+                  col.key === sortKey ? (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setSortKey(null);
+                        setSortDir("asc");
+                      }}
+                      title="בטל מיון"
+                      style={{
+                        border: "none",
+                        background: "transparent",
+                        padding: 0,
+                        cursor: "pointer",
+                        fontSize: 12,
+                      }}
+                    >
+                      {sortDir === "asc" ? "↑" : "↓"}
+                    </button>
+                  ) : (
+                    <span style={{ display: "inline-flex", gap: 6, alignItems: "center" }}>
+                      <button
+                        type="button"
+                        onClick={() => sortBy(col.key!, "asc")}
+                        title="מיין ↑"
+                        style={{ border: "none", background: "transparent", padding: 0, cursor: "pointer", fontSize: 12 }}
+                      >
+                        ↑
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => sortBy(col.key!, "desc")}
+                        title="מיין ↓"
+                        style={{ border: "none", background: "transparent", padding: 0, cursor: "pointer", fontSize: 12 }}
+                      >
+                        ↓
+                      </button>
+                    </span>
+                  )
+                )}
+              </span>
+            </th>
+          ))}
         </tr>
       </thead>
 
       <tbody>
-        {displayedRows.map((event, i) => (
+        {displayedRows.map((row, i) => (
           <tr key={i}>
-            <td style={{ textAlign: "center" }}>{i + 1}</td>
-            <td>{event.timeDate}</td>
-            <td>{event.location?.label}</td>
-            <td>{event.typeActivity?.label}</td>
-            <td>{event.categoryoption?.label}</td>
-            <td>{event.eventSeverity?.label}</td>
-            <td>{event.typeUnitActivity?.label}</td>
-            <td>{event.weather?.label}</td>
-            <td>{event.eventDescription}</td>
-            <td>{event.subSubUnitInput}</td>
-            <td>{event.results?.label}</td>
-            <td
-              style={{
-                textAlign:
-                  event.injuryLevel?.label !== "בחר/י" ? "right" : "center",
-              }}
-            >
-              {event.injuryLevel?.label && event.injuryLevel.label !== "בחר/י"
-                ? event.injuryLevel.label
-                : "-"}
-            </td>
+            {COLUMNS.map((col, j) => {
+              if (col.isIndex) {
+                return (
+                  <td key={j} style={{ textAlign: "center" }}>
+                    {i + 1}
+                  </td>
+                );
+              }
+
+              if (!col.key) return <td key={j} />;
+
+              if (col.key === "injuryLevel") {
+                const lbl = row.injuryLevel?.label;
+                const showDash = !lbl || lbl === "בחר/י";
+                return (
+                  <td key={j} style={{ textAlign: showDash ? "center" : "right" }}>
+                    {showDash ? "-" : lbl}
+                  </td>
+                );
+              }
+
+              return <td key={j}>{getVal(row, col.key)}</td>;
+            })}
           </tr>
         ))}
       </tbody>
