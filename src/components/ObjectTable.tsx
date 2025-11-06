@@ -39,7 +39,7 @@ type Column = {
 };
 
 const COLUMNS: Column[] = [
-  { header: "#", isIndex: true },
+  { header: 'מס"ד', isIndex: true },
   { header: "תאריך ושעה", key: "timeDate", sortable: true },
   { header: "מיקום", key: "location", sortable: true },
   { header: "פעילות הפרט", key: "typeActivity", sortable: true },
@@ -47,8 +47,8 @@ const COLUMNS: Column[] = [
   { header: "חומרת האירוע", key: "eventSeverity", sortable: true },
   { header: "פעילות היחידה", key: "typeUnitActivity", sortable: true },
   { header: "מזג אוויר", key: "weather", sortable: true },
-  { header: "תיאור האירוע", key: "eventDescription" }, // ללא מיון
-  { header: "יחידות משנה", key: "subSubUnitInput" },   // ללא מיון
+  { header: "תיאור האירוע", key: "eventDescription" },
+  { header: "יחידות משנה", key: "subSubUnitInput" },
   { header: "תוצאות", key: "results", sortable: true },
   { header: "חומרת הפגיעה", key: "injuryLevel", sortable: true },
 ];

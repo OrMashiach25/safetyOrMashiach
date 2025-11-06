@@ -18,6 +18,7 @@ function Navbar({ mode, toggleMode }: Props) {
         fontWeight: "bold",
         textAlign: "right",
         width: "100%",
+        margin:0,
         marginBottom: "10px",
         display: "flex",
         justifyContent: "space-between",

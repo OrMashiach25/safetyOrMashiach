@@ -170,10 +170,11 @@ function EventForm() {
 
                 </div>
 
-                {errorMessage && <MuiErorrAlert message={errorMessage}/>}
+                {errorMessage && <MuiErorrAlert message={errorMessage} duration={3500}/>}
                 
-                <div style={{display: "flex", gap: 12,marginTop:12 }}>
-                    <Button type="submit" variant="contained" color="primary">
+                <div style={{display: "flex", gap: 12,marginTop:12, margin:20 }}>
+                    <Button type="submit" variant="contained" color="primary"
+                    >
                         הוסף אירוע
                     </Button>
 

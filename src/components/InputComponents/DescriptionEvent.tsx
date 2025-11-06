@@ -14,21 +14,21 @@ function DescriptionEvent ({value, onChange}: Props) {
         }
     }
     return(
-        <TextField
-            label= "תיאור האירוע:"
-            variant = "outlined"
-            multiline
-            rows = {2}
-            placeholder="עד 800 תווים" 
-            value={value}
-            onChange={handleChange}
-            
-            sx={{ width: 300}}
-            slotProps={{
-                input: { dir: "rtl", style: { textAlign: "right" } },
-            }}
-          
-        />
+        <div className="fieldfield--wide">
+            <TextField
+                label= "תיאור האירוע:"
+                variant = "outlined"
+                multiline
+                rows = {2}
+                placeholder="עד 800 תווים" 
+                value={value}
+                onChange={handleChange}
+                sx={{ width: "100%"}}
+                slotProps={{
+                    input: { dir: "rtl", style: { textAlign: "right" } },
+                }}
+            />
+        </div>
     );
 }
 export default DescriptionEvent;

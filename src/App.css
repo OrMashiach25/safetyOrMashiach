@@ -1,25 +1,28 @@
+/*--------------------------------------*/ 
+/* Home page designs */ 
+/*--------------------------------------*/ 
 
 .HomePage{
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
+
 .event-form{
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px ;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 30px ;
     direction: rtl;
+    margin: 20px;
 }
 
 .field{
-  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 4px;
   margin-bottom: 3px;
-  font-size: 18px;
+  font-size: 15px;
   font-weight:bold ;
-  flex: 1 1 calc(20% - 1%);
 }
 
 .field > label {
@@ -28,16 +31,23 @@
   padding: 2px 8px;
   border-radius: 4px;
   width: fit-content;
-  display: inline-block;
 }
 
 .field input,
 .field select,
 .field textarea {
-  max-width: 150px;   
+  max-width: 115px;   
 }
 
-/* ליישר תווית מימין ולטפל במיקום כשהיא "מתכווצת" לאאוטליין */
+.field--wide{
+  grid-column: 1 / -1;
+}
+
+
+/*--------------------------------------*/ 
+/* Description event input label designs */ 
+/*--------------------------------------*/ 
+
 .MuiInputLabel-root {
   right: 0;
   left: auto;
@@ -46,50 +56,49 @@
   transform-origin: right top;
 }
 
-/* מצב רגיל (לפני הקטנה) */
 .MuiInputLabel-root.MuiInputLabel-formControl {
   transform: translate(-8px, 8px) scale(1);
 }
 
-/* מצב "מכווץ" בתוך המסגרת */
 .MuiInputLabel-root.MuiInputLabel-shrink {
-  transform: translate(60px, -9px) scale(0.75);
+  transform: translate(30px, -9px) scale(0.75);
 }
 
-/* לוודא שהנוץ' (החריץ) מתחיל מימין */
-.MuiOutlinedInput-root {
-  direction: rtl;
-}
 .MuiOutlinedInput-root fieldset legend {
   text-align: right;
 }
 
+/*--------------------------------------*/ 
+/* Object table designs */ 
+/*--------------------------------------*/ 
+
 .events-table {
-  width: 99%;
+ 
   border-collapse: collapse; 
   table-layout: fixed;
+  margin: 25px;
 }
 
 .events-table th, .events-table td {
   border: 2px solid #000000;
   padding: 8px;
-  vertical-align: top;
-  word-break: break-word;
+  word-break: keep-all;
+  text-align: center;
 }
 
 .events-table thead th {
-  text-align: right;
+  text-align: center;
   vertical-align: middle;
   background: #f7ecec;
   font-weight: bold;
 }
 
-
 .dark .events-table,
 .dark .events-table th,
-.dark .events-table td {
-  background: #2b2c2d;      /* רקע לבן */
-  color: #c1bfbd;           /* טקסט שחור */
+.dark .events-table td,
+.dark .events-table button{
+  background: #2b2c2d;
+  color: #c1bfbd;
   border-color: #7e776c;
 }
 
@@ -97,6 +106,4 @@
   background-color: #3c2828;
 }
 
-.dark .arrow-button {
-  color: #ffff;
-}
+

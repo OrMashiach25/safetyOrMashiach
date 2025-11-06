@@ -36,8 +36,10 @@ function App() {
 
 function AppContent({ mode, toggleMode }: { mode: "light" | "dark"; toggleMode: () => void }) {
   return (
+    
     <div dir="rtl" className={`HomePage ${mode === "dark" ? "dark" : "light"}`}>
-      <Navbar mode={mode} toggleMode={toggleMode} />
+      
+      <Navbar mode={mode} toggleMode={toggleMode} />        
       <Routes>
         <Route path="/" element={<EventForm />} />
         <Route path="/page1" element={<NewPage />} />

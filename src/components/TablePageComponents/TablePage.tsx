@@ -28,21 +28,20 @@ function NewPage() {
   }
 
   return (
-    <div dir="rtl" style={{ textAlign: "center", marginTop: "5px" }}>
+    <div dir="rtl" style={{ textAlign: "center", margin:25 }}>
         
       <Button 
         variant="contained" 
         color="primary" 
         onClick={goBack}
-        style={{ marginTop: "5px",
-          display: "block",
-          marginLeft: "auto"
-         }}
+        style={{ 
+          display: "block"
+        }}
       >
         חזרה לעמוד הקודם
       </Button>
       
-      <h2> טבלת סיכום אירועים</h2>
+      <h2> טבלת סיכום אירועים </h2>
       <ObjectTable allEvents={allEvents}/>
 
     </div>
