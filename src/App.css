@@ -32,9 +32,6 @@
 .results-cell  { grid-column: 4; }
 .severity-cell { grid-column: 5; }
 
-
-
-
 .field{
   display: flex;
   flex-direction: column;
@@ -56,6 +53,23 @@
 .field select,
 .field textarea {
   max-width: 115px;   
+}
+
+
+/*--------------------------------------*/ 
+/* Civil area coord designs */ 
+/*--------------------------------------*/ 
+
+
+.coordField .MuiInputLabel-root {
+  right: 10px;
+  left: auto;
+  transform-origin: right top;
+  overflow: hidden;
+}
+
+.coordField .MuiInputLabel-root.MuiInputLabel-shrink {
+  transform: translate(-8px, -9px) scale(0.75); 
 }
 
 /*--------------------------------------*/ 

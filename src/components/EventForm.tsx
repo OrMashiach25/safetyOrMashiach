@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import type { Option } from "../Data";
-import { Button } from "@mui/material";
+import { Button, Dialog, DialogTitle, DialogContent, DialogActions, TextField } from "@mui/material";
 import ActivityType from "./InputComponents/ActivityType";
 import Category from "./InputComponents/Category";
 import DescriptionEvent from "./InputComponents/DescriptionEvent";
@@ -22,6 +22,7 @@ type FormData = {
     eventDescription: string;
     eventSeverity: Option;
     location: Option;
+    civilAreaCoord: string;
     results: Option;
     injuryLevel: Option;
     subSubUnitInput: string;
@@ -40,6 +41,7 @@ function EventForm() {
     eventDescription:"", 
     eventSeverity:{ value: "", label: "בחר/י" },
     location:{ value: "", label: "בחר/י" },
+    civilAreaCoord:"",
     results:{ value: "", label: "בחר/י" },
     injuryLevel:{ value: "", label: "בחר/י" },
     subSubUnitInput: "",
@@ -50,8 +52,28 @@ function EventForm() {
 
     const [errorMessage, setErrorMessage] = useState<string>("");
     const [erorrKey , setErorrKey] = useState(0);
-
     const [allEvents, setAllEnets] = useState<FormData[]>([]);
+    const [coordDialogOpen, setCoordDialogOpen] = useState(false);
+    const [coordDraft, setCoordDraft] = useState("");
+    const [coordError, setCoordError] = useState("");
+    const [prevLocation, setPrevLocation] = useState<Option | null>(null);
+    const [pendingCivilLoc, setPendingCivilLoc] = useState<Option | null>(null);
+
+    function normalizeCoord(v: string) {
+        const m = v.match(/\d{6}/g);
+        if (!m || m.length < 2) return null;
+        return `(${m[0]},${m[1]})`;
+    }
+
+
+    function isCivilArea(opt: Option) { 
+        return opt.label === "שטח אזרחי" || opt.value === "civilian_area"; 
+    } 
+    
+    function validateCoord(v: string) { 
+        const patt = /^\s*\(\d{6},\s*\d{6}\)\s*$/; 
+        return patt.test(v); 
+    }
 
     function updateField<K extends keyof FormData>(key: K, value: FormData[K]) {
         setFormData(prev => ({ ...prev, [key]: value }));
@@ -71,12 +93,20 @@ function EventForm() {
             formData.results.value !== "" &&
             formData.eventDescription.trim() !== "" &&
             formData.subSubUnitInput.trim() !== "";
-
+        
         if (!allFilled){
             setErrorMessage("אנא מלא את כל פרטי הטופס");
             setErorrKey((k) => k+1);
             return;
         }
+
+        if (isCivilArea(formData.location) && !validateCoord(formData.civilAreaCoord)) {
+            setErrorMessage("נדרש נ״צ בפורמט (123456,654321) עבור 'שטח אזרחי'");
+            setErorrKey((k) => k + 1);
+            return;
+        }
+
+
         setErrorMessage("");
         
         setAllEnets(prev => [...prev, formData] );
@@ -88,6 +118,7 @@ function EventForm() {
         eventDescription:"", 
         eventSeverity:{ value: "", label: "בחר/י" },
         location:{ value: "", label: "בחר/י" },
+        civilAreaCoord:"",
         results:{ value: "", label: "בחר/י" },
         injuryLevel:{ value: "", label: "בחר/י" },
         subSubUnitInput: "",
@@ -116,8 +147,20 @@ function EventForm() {
 
                     <div className="field">
                         <LocationSelect
-                        value={formData.location}
-                        onChange={(v) => updateField("location", v)}
+                            value={formData.location}
+                            onChange={(v) => {
+                                setPrevLocation(formData.location);
+
+                                if (isCivilArea(v)) {
+                                setPendingCivilLoc(v);
+                                setCoordDraft(formData.civilAreaCoord || "");
+                                setCoordError("");
+                                setCoordDialogOpen(true);
+                                } else {
+                                updateField("location", v);
+                                updateField("civilAreaCoord", "");
+                                }
+                            }}
                         />
                     </div>
                     <div className="field">
@@ -191,9 +234,72 @@ function EventForm() {
                     </Button>
                 </div>
             </form>
+
+            <Dialog open={coordDialogOpen} onClose={() => {}} dir="rtl">
+                <DialogTitle>הזן/י נ״צ לשטח אזרחי</DialogTitle>
+                <DialogContent>
+                    <TextField
+                    className="coordField"
+                    autoFocus
+                    fullWidth
+                    margin="dense"
+                    label='פורמט: (123456,654321)'
+                    placeholder="(123456,654321)"
+                    value={coordDraft}
+                    onChange={(e) => { setCoordDraft(e.target.value); if (coordError) setCoordError(""); }}
+                    error={!!coordError}
+                    helperText={coordError || "זהו שדה חובה"}
+                    slotProps={{
+                        htmlInput: {
+                            dir: "ltr",
+                            inputMode: "numeric",
+                            pattern: String.raw`\(\d{6},\s*\d{6}\)`,
+                        },
+                    }}
+                    />
+                </DialogContent>
+
+                <DialogActions sx={{ justifyContent: "space-between" }}>
+                    <Button
+                    onClick={() => {
+                        setCoordDialogOpen(false);
+                        setCoordDraft("");
+                        setCoordError("");
+                        setPendingCivilLoc(null);
+                        if (prevLocation) {
+                        updateField("location", prevLocation);
+                        }
+                    }}
+                    >
+                    ביטול
+                    </Button>
+
+                    <Button
+                    variant="contained"
+                    onClick={() => {
+                        if (!validateCoord(coordDraft)) {
+                        setCoordError("נ״צ לא תקין");
+                        return;
+                        }
+                        const normalized = normalizeCoord(coordDraft);
+                        if (!normalized || !pendingCivilLoc) {
+                        setCoordError("שגיאה בשמירת הנ״צ. נסה/י שוב.");
+                        return;
+                        }
+
+                        updateField("location", pendingCivilLoc);
+                        updateField("civilAreaCoord", normalized);
+
+                        setCoordDialogOpen(false);
+                        setPendingCivilLoc(null);
+                    }}
+                    >
+                    שמירה
+                    </Button>
+                </DialogActions>
+            </Dialog>
         </div>
     );
-
 }
 
 export default EventForm;

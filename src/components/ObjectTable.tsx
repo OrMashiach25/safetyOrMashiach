@@ -1,5 +1,8 @@
 import { useMemo, useState } from "react";
 import type { Option } from "../Data";
+import { Dialog, DialogTitle, DialogContent, DialogActions, Button, IconButton, Tooltip } from "@mui/material";
+import PlaceIcon from "@mui/icons-material/Place";
+
 
 type FormData = {
   typeActivity: Option;
@@ -7,10 +10,11 @@ type FormData = {
   eventDescription: string;
   eventSeverity: Option;
   location: Option;
+  civilAreaCoord?: string;
   results: Option;
   injuryLevel: Option;
   subSubUnitInput: string;
-  timeDate: string; // ISO
+  timeDate: string;
   weather: Option;
   typeUnitActivity: Option;
 };
@@ -57,6 +61,14 @@ function ObjectTable({ allEvents }: Props) {
   const [sortKey, setSortKey] = useState<ColKey | null>(null);
   const [sortDir, setSortDir] = useState<SortDir>("asc");
 
+  const [coordViewOpen, setCoordViewOpen] = useState(false);
+  const [coordToView, setCoordToView] = useState<string>("");
+
+   function isCivilArea(opt: Option | undefined | null) {
+      if (!opt) return false;
+      return opt.label === "שטח אזרחי" || opt.value === "civilian_area" || opt.value === "civil_area";
+  }
+
   function getVal(row: FormData, key: ColKey): string {
     const v: any = row[key as keyof FormData];
     if (v == null) return "";
@@ -90,6 +102,7 @@ function ObjectTable({ allEvents }: Props) {
   }, [allEvents, sortKey, sortDir]);
 
 return (
+  <>
     <table className="events-table" dir="rtl">
       <thead>
         <tr>
@@ -166,6 +179,31 @@ return (
                   </td>
                 );
               }
+              if (col.key === "location") {
+                  const label = getVal(row, "location");
+                  const showIcon = isCivilArea(row.location) && !!row.civilAreaCoord;
+                  return (
+                    <td key={j}>
+                      <span style={{ display: "inline-flex", gap: 6, alignItems: "center" }}>
+                        <span>{label}</span>
+                        {showIcon && (
+                          <Tooltip title="הצגת נ״צ">
+                            <IconButton
+                              size="small"
+                              onClick={() => {
+                                setCoordToView(row.civilAreaCoord!);
+                                setCoordViewOpen(true);
+                              }}
+                              aria-label="show-coord"
+                            >
+                              <PlaceIcon fontSize="small" />
+                            </IconButton>
+                          </Tooltip>
+                        )}
+                      </span>
+                    </td>
+                  );
+                }
 
               return <td key={j}>{getVal(row, col.key)}</td>;
             })}
@@ -173,6 +211,19 @@ return (
         ))}
       </tbody>
     </table>
+
+      <Dialog open={coordViewOpen} onClose={() => setCoordViewOpen(false)} dir="rtl">
+          <DialogTitle>נ״צ (תצוגה בלבד)</DialogTitle>
+              <DialogContent>
+                <div style={{ fontFamily: "monospace", fontSize: 16, direction: "ltr", marginTop: 6 }}>
+                  {coordToView}
+                </div>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={() => setCoordViewOpen(false)} variant="contained">סגור</Button>
+              </DialogActions>
+      </Dialog>
+    </>
   );
 }
 
