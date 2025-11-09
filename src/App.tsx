@@ -13,9 +13,15 @@ function App() {
     () =>
       createTheme({
         direction: "rtl",
-        palette: mode === 'light' ? {mode} : {mode: 'dark', background : {default: '#2b2c2d'}},
-      }),
-    [mode]
+        palette: mode === 'light' 
+        ? {mode: "light"} 
+        : {
+            mode: 'dark',
+            background : {default: '#2b2c2d', paper: '#2b2c2d' },
+            text: {primary: '#fff', secondary: '#ddd'},
+          },
+        
+      }),[mode]
   );
 
   const toggleMode = () => {

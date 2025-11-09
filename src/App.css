@@ -8,6 +8,15 @@
     gap: 10px;
 }
 
+.event-form-title{
+  margin: 10px 15px;
+  border-bottom: 2px solid #cfcfcf;
+  padding-bottom: 5px;
+  text-align: center;
+  font-size: 20px;
+  text-decoration: underline;
+}
+
 .event-form{
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -15,6 +24,8 @@
     direction: rtl;
     margin: 20px;
 }
+
+
 
 .field{
   display: flex;
@@ -38,11 +49,6 @@
 .field textarea {
   max-width: 115px;   
 }
-
-.field--wide{
-  grid-column: 1 / -1;
-}
-
 
 /*--------------------------------------*/ 
 /* Description event input label designs */ 

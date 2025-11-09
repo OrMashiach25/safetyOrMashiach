@@ -49,6 +49,7 @@ function EventForm() {
     });
 
     const [errorMessage, setErrorMessage] = useState<string>("");
+    const [erorrKey , setErorrKey] = useState(0);
 
     const [allEvents, setAllEnets] = useState<FormData[]>([]);
 
@@ -72,7 +73,8 @@ function EventForm() {
             formData.subSubUnitInput.trim() !== "";
 
         if (!allFilled){
-            setErrorMessage("אנא מלא את כל פרטי הטופס")
+            setErrorMessage("אנא מלא את כל פרטי הטופס");
+            setErorrKey((k) => k+1);
             return;
         }
         setErrorMessage("");
@@ -100,7 +102,8 @@ function EventForm() {
     }
 
     return (
-        <>
+        <div>
+            <h1 className="event-form-title"> יצירת אירוע חדש</h1>
             <form onSubmit={handleSubmit}>
                 <div className="event-form">
                     <div className="field">
@@ -170,7 +173,7 @@ function EventForm() {
 
                 </div>
 
-                {errorMessage && <MuiErorrAlert message={errorMessage} duration={3500}/>}
+                {errorMessage && <MuiErorrAlert key={erorrKey} message={errorMessage} duration={3000}/>}
                 
                 <div style={{display: "flex", gap: 12,marginTop:12, margin:20 }}>
                     <Button type="submit" variant="contained" color="primary"
@@ -188,7 +191,7 @@ function EventForm() {
                     </Button>
                 </div>
             </form>
-        </>
+        </div>
     );
 
 }
