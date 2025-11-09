@@ -156,7 +156,7 @@ function EventForm() {
                         onChange={(v) => updateField("subSubUnitInput", v)}
                         />
                     </div>
-                    <div className="field">
+                    <div className="results-wrapper">
                         <Results
                         value={formData.results}
                         onChange={(v) => updateField("results", v)}

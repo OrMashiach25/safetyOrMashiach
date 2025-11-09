@@ -19,11 +19,19 @@
 
 .event-form{
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    grid-template-columns: repeat(5, minmax(180px, 1fr));
     gap: 30px ;
     direction: rtl;
     margin: 20px;
 }
+
+.results-wrapper {
+  display: contents;
+}
+
+.results-cell  { grid-column: 4; }
+.severity-cell { grid-column: 5; }
+
 
 
 
@@ -67,7 +75,7 @@
 }
 
 .MuiInputLabel-root.MuiInputLabel-shrink {
-  transform: translate(30px, -9px) scale(0.75);
+  transform: translate(53px, -9px) scale(0.75);
 }
 
 .MuiOutlinedInput-root fieldset legend {
@@ -79,10 +87,13 @@
 /*--------------------------------------*/ 
 
 .events-table {
- 
   border-collapse: collapse; 
   table-layout: fixed;
   margin: 25px;
+}
+
+.table-page-title{
+  text-decoration: underline;
 }
 
 .events-table th, .events-table td {

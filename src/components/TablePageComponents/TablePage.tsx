@@ -41,7 +41,7 @@ function NewPage() {
         חזרה לעמוד הקודם
       </Button>
       
-      <h2> טבלת סיכום אירועים </h2>
+      <h2 className="table-page-title" > טבלת סיכום אירועים </h2>
       <ObjectTable allEvents={allEvents}/>
 
     </div>
