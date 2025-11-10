@@ -1,10 +1,14 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { createTheme } from "@mui/material";
 
 export function useColorMode() {
   const [mode, setMode] = useState<"light" | "dark">(
     (localStorage.getItem("mode") as "light" | "dark") || "light"
   );
+
+  useEffect(() => {
+    localStorage.setItem("mode", mode);
+  }, [mode]);
 
   const theme = useMemo(
     () =>
@@ -23,9 +27,7 @@ export function useColorMode() {
   );
 
   const toggleMode = () => {
-    const next = mode === "light" ? "dark" : "light";
-    setMode(next);
-    localStorage.setItem("mode", next);
+    setMode(prev => (prev === "light" ? "dark" : "light"))     ;;
   };
 
   return { mode, theme, toggleMode };

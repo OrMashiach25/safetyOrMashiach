@@ -23,8 +23,8 @@ function unitActivityType({value , onChange}: Props) {
             <option 
               key={index} 
               value={item.value}
-              disabled={item.isDefault == true}
-              hidden={item.isDefault == true}
+              disabled={item.isDefault === true}
+              hidden={item.isDefault === true}
               >
               {item.label}
              </option>

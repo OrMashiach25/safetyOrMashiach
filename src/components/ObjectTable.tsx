@@ -71,7 +71,7 @@ function ObjectTable({ allEvents }: Props) {
 
   function getVal(row: FormData, key: ColKey): string {
     const v: any = row[key as keyof FormData];
-    if (v == null) return "";
+    if (v === null) return "";
     if (typeof v === "object" && ("label" in v || "value" in v)) {
       return String(v.label ?? v.value ?? "");
     }

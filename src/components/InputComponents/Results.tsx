@@ -26,7 +26,7 @@ function Results({ value, onChange, injuryLevel, onChangeInjury }: Props) {
                 key={index} 
                 value={item.value}
                 disabled={item.isDefault === true}
-                hidden={item.isDefault == true}
+                hidden={item.isDefault === true}
                 >
                 {item.label}
               </option>
@@ -51,8 +51,8 @@ function Results({ value, onChange, injuryLevel, onChangeInjury }: Props) {
                   <option 
                     key={index} 
                     value={item.value}
-                    disabled={item.isDefault == true}
-                    hidden={item.isDefault == true}
+                    disabled={item.isDefault === true}
+                    hidden={item.isDefault === true}
                     >
                     {item.label}
                   </option>
