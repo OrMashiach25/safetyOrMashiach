@@ -2,7 +2,9 @@ import { useMemo, useState } from "react";
 import type { Option } from "../Data";
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button, IconButton, Tooltip } from "@mui/material";
 import PlaceIcon from "@mui/icons-material/Place";
-
+import { INDEX_LABEL,TIME_DATE_LABEL ,LOCATION_LABEL ,TYPE_ACTIVITY_LABEL ,
+    CATEGORY_OPTION_LABEL ,TYPE_UNIT_ACTIVITY_LABEL ,WEATHER_LABEL ,EVENT_DESCRIPTION_LABEL ,
+    SUB_SUBUNIY_INPUT_LABEL ,RESULTS_LABEL ,EVENT_SEVERITY_LABEL ,INJURY_LEVEL_LABEL } from "../labels";
 
 type FormData = {
   typeActivity: Option;
@@ -43,18 +45,18 @@ type Column = {
 };
 
 const COLUMNS: Column[] = [
-  { header: 'מס"ד', isIndex: true },
-  { header: "תאריך ושעה", key: "timeDate", sortable: true },
-  { header: "מיקום", key: "location", sortable: true },
-  { header: "פעילות הפרט", key: "typeActivity", sortable: true },
-  { header: "קטגוריה", key: "categoryoption", sortable: true },
-  { header: "חומרת האירוע", key: "eventSeverity", sortable: true },
-  { header: "פעילות היחידה", key: "typeUnitActivity", sortable: true },
-  { header: "מזג אוויר", key: "weather", sortable: true },
-  { header: "תיאור האירוע", key: "eventDescription" },
-  { header: "יחידות משנה", key: "subSubUnitInput" },
-  { header: "תוצאות", key: "results", sortable: true },
-  { header: "חומרת הפגיעה", key: "injuryLevel", sortable: true },
+  { header: INDEX_LABEL, isIndex: true },
+  { header: TIME_DATE_LABEL, key: "timeDate", sortable: true },
+  { header: LOCATION_LABEL, key: "location", sortable: true },
+  { header: TYPE_ACTIVITY_LABEL, key: "typeActivity", sortable: true },
+  { header: CATEGORY_OPTION_LABEL, key: "categoryoption", sortable: true },
+  { header: EVENT_SEVERITY_LABEL, key: "eventSeverity", sortable: true },
+  { header: TYPE_UNIT_ACTIVITY_LABEL, key: "typeUnitActivity", sortable: true },
+  { header: WEATHER_LABEL, key: "weather", sortable: true },
+  { header: EVENT_DESCRIPTION_LABEL, key: "eventDescription" },
+  { header: SUB_SUBUNIY_INPUT_LABEL, key: "subSubUnitInput" },
+  { header: RESULTS_LABEL, key: "results", sortable: true },
+  { header: INJURY_LEVEL_LABEL, key: "injuryLevel", sortable: true },
 ];
 
 function ObjectTable({ allEvents }: Props) {
