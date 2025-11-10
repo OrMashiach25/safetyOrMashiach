@@ -3,33 +3,12 @@ import Navbar from "./components/NavbarComponents/Navber";
 import EventForm from "./components/EventForm";
 import NewPage from "./components/TablePageComponents/TablePage";
 import { BrowserRouter as Router, Routes, Route} from "react-router-dom";
-import { useState, useMemo } from "react";
-import { ThemeProvider, createTheme, CssBaseline } from "@mui/material";
+import { ThemeProvider, CssBaseline } from "@mui/material";
+import { useColorMode } from "./hooks/useColorMode";
+
 
 function App() {
-  const [mode, setMode] = useState<"light" | "dark">("light");
-
-  const theme = useMemo(
-    () =>
-      createTheme({
-        direction: "rtl",
-        palette: mode === 'light' 
-        ? {mode: "light"} 
-        : {
-            mode: 'dark',
-            background : {default: '#2b2c2d', paper: '#2b2c2d' },
-            text: {primary: '#fff', secondary: '#ddd'},
-          },
-        
-      }),[mode]
-  );
-
-  const toggleMode = () => {
-    const next = mode === "light" ? "dark" : "light";
-    setMode(next);
-    localStorage.setItem("mode", next);
-  };
-
+  const { mode, theme, toggleMode } = useColorMode();
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
