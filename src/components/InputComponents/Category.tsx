@@ -1,5 +1,6 @@
 import { categoryArr} from "../../Data";
 import type { Option } from "../../Data";
+import { CATEGORY_OPTION_LABEL } from "../../labels";
 
 type Props = {
   value: Option; 
@@ -10,7 +11,7 @@ function category ({value, onChange}: Props) {
     
     return (
         <>
-        <label htmlFor="category"> מאפיין תחומי:</label>
+        <label htmlFor="category"> {CATEGORY_OPTION_LABEL} :</label>
         <select
             id = "category"
             value = {value.value}

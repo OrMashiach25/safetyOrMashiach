@@ -1,5 +1,6 @@
 import { resultsArr, injuriesLevelArr} from "../../Data";
 import type { Option } from "../../Data";
+import { RESULTS_LABEL, INJURY_LEVEL_LABEL} from "../../labels";
 
 type Props = {
   value: Option;                    
@@ -12,7 +13,7 @@ function Results({ value, onChange, injuryLevel, onChangeInjury }: Props) {
     return(
         <>
           <div className="field results-cell">
-            <label htmlFor="results"> תוצאות האירוע:</label>  
+            <label htmlFor="results"> {RESULTS_LABEL} :</label>  
             <select
               id="results"
               value = {value.value}
@@ -38,7 +39,7 @@ function Results({ value, onChange, injuryLevel, onChangeInjury }: Props) {
         {value.value.includes("with_injury") &&  (
 
           <div className="field severity-cell">
-            <label htmlFor="injuryLevel"> חומרת הפגיעה:</label>
+            <label htmlFor="injuryLevel"> {INJURY_LEVEL_LABEL} :</label>
               <select
               id="injuryLevel"
                 value={injuryLevel.value}

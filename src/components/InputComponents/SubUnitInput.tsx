@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { SUB_SUBUNIY_INPUT_LABEL } from "../../labels"
+
 type Props = {
   value: string; 
   onChange: (v: string) => void 
@@ -21,7 +23,7 @@ function subSubUnitInput ({value, onChange}: Props) {
 
     return(
         <> 
-            <label> יחידות משנה:</label>
+            <label> {SUB_SUBUNIY_INPUT_LABEL} :</label>
             <input 
                 type="text" 
                 placeholder="טקסט חופשי"

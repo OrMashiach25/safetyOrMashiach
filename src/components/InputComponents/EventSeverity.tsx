@@ -1,5 +1,6 @@
 import { eventSeverityArr} from "../../Data";
 import type { Option } from "../../Data";
+import { EVENT_SEVERITY_LABEL } from "../../labels";
 
 type Props = {
   value: Option; 
@@ -10,7 +11,7 @@ function EventSeverity({value, onChange}: Props) {
 
     return(
         <>
-        <label htmlFor="eventSeverity"> חומרת האירוע:</label>
+        <label htmlFor="eventSeverity"> {EVENT_SEVERITY_LABEL} :</label>
         <select
             id="eventSeverity"
             value = {value.value}

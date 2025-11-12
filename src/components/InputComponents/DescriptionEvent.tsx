@@ -1,5 +1,5 @@
 import { TextField } from "@mui/material";
-
+import { EVENT_DESCRIPTION_LABEL } from "../../labels";
 type Props = {
   value: string; 
   onChange: (v: string) => void 
@@ -16,7 +16,7 @@ function DescriptionEvent ({value, onChange}: Props) {
     return(
         <div className="fieldfield--wide">
             <TextField
-                label= "תיאור האירוע:"
+                label= {EVENT_DESCRIPTION_LABEL}
                 variant = "outlined"
                 multiline
                 rows = {2}

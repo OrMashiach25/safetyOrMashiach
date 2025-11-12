@@ -1,4 +1,4 @@
-
+import { TIME_DATE_LABEL } from "../../labels"
 type Props = {
   value: string;
   onChange: (v: string) => void;
@@ -7,7 +7,7 @@ type Props = {
 function TimeAndDate({value, onChange}: Props) {
     return(
       <>
-          <label >תאריך ושעה: </label>
+          <label> {TIME_DATE_LABEL} :</label>
         <input 
         type="datetime-local" 
         value={value}

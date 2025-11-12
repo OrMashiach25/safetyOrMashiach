@@ -1,7 +1,7 @@
 
 import { locationArr} from "../../Data";
 import type { Option } from "../../Data";
-
+import { LOCATION_LABEL } from "../../labels";
 type Props = {
   value: Option; 
   onChange: (v: Option) => void 
@@ -10,7 +10,7 @@ type Props = {
 function LocationSelect ({value, onChange}: Props) {
   return(
     <>
-      <label htmlFor="location"> מקום האירוע:</label>
+      <label htmlFor="location"> {LOCATION_LABEL} :</label>
       <select
           id="location"
           value = {value.value}

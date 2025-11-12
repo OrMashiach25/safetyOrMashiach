@@ -1,5 +1,6 @@
 import { weatherArr} from "../../Data";
 import type { Option } from "../../Data";
+import { WEATHER_LABEL } from "../../labels";
 
 type Props = {
   value: Option; 
@@ -10,7 +11,7 @@ function Weather ({value, onChange}: Props) {
 
     return(
         <>
-        <label htmlFor="weather"> תנאים סבבתיים:</label> 
+        <label htmlFor="weather"> {WEATHER_LABEL} :</label> 
             <select
                 id="weather"
                 value={value.value}

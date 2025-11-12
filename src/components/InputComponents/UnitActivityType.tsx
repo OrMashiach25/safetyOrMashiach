@@ -1,5 +1,6 @@
 import { unitActivityTypeArr} from "../../Data";
 import type { Option } from "../../Data";
+import { TYPE_UNIT_ACTIVITY_LABEL } from "../../labels"
 
 type Props = {
   value: Option; 
@@ -10,7 +11,7 @@ function unitActivityType({value , onChange}: Props) {
 
     return (
       <>
-      <label htmlFor="unitActivityType"> פעילות היחידה:</label>
+      <label htmlFor="unitActivityType"> {TYPE_UNIT_ACTIVITY_LABEL} :</label>
         <select
           id= "unitActivityType"
           value = {value.value}
