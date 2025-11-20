@@ -27,7 +27,7 @@ function AppContent({ mode, toggleMode }: { mode: "light" | "dark"; toggleMode: 
       <Navbar mode={mode} toggleMode={toggleMode} />        
       <Routes>
         <Route path="/" element={<EventForm />} />
-        <Route path="/page1" element={<NewPage />} />
+        <Route path="/events" element={<NewPage />} />
       </Routes>
     </div>
   );

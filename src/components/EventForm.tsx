@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import type { Option } from "../Data";
 import { Button, Dialog, DialogTitle, DialogContent, DialogActions, TextField } from "@mui/material";
 import ActivityType from "./InputComponents/ActivityType";
@@ -13,6 +13,8 @@ import TimeAndDate from "./InputComponents/TimeAndDate";
 import Weather from "./InputComponents/Weather";
 import UnitActivityType from "./InputComponents/UnitActivityType";
 import { MuiErorrAlert } from "./MuiErrorAlert";
+import { createEvent, fetchEvents} from "../api/eventsApi";
+import type { EventPayload} from "../api/eventsApi";
  
 
 
@@ -52,7 +54,6 @@ function EventForm() {
 
     const [errorMessage, setErrorMessage] = useState<string>("");
     const [erorrKey , setErorrKey] = useState(0);
-    const [allEvents, setAllEnets] = useState<FormData[]>([]);
     const [coordDialogOpen, setCoordDialogOpen] = useState(false);
     const [coordDraft, setCoordDraft] = useState("");
     const [coordError, setCoordError] = useState("");
@@ -79,7 +80,24 @@ function EventForm() {
         setFormData(prev => ({ ...prev, [key]: value }));
     }
 
-    function handleSubmit(e: React.FormEvent) {
+
+    const [hasEvents, setHasEvents] = useState(false);
+
+    useEffect(() => {
+        async function checkEvents() {
+            try {
+                const data = await fetchEvents();
+                setHasEvents(Array.isArray(data) && data.length >0);
+            } catch (err) {
+                console.error("Error checking events:", err);
+                setHasEvents(false);
+            }
+        }
+
+        checkEvents();
+    }, []);
+
+    async function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
         
         const allFilled = 
@@ -106,11 +124,35 @@ function EventForm() {
             return;
         }
 
-
         setErrorMessage("");
+
+
+        const payload: EventPayload = {
+            Date: formData.timeDate,
+            location: formData.location.value,
+            typeActivity: formData.typeActivity.value,
+            categoryoption: formData.categoryoption.value,
+            eventSeverity: formData.eventSeverity.value,
+            typeUnitActivity: formData.typeUnitActivity.value,
+            weather: formData.weather.value,
+            eventDescription: formData.eventDescription,
+            subSubUnitInput: formData.subSubUnitInput,
+            results: formData.results.value,
+            injuryLevel: formData.injuryLevel.value,
+        };
+
+        try {
+            await createEvent(payload);
+        } catch (err) {
+            console.error("Error creating event:", err);
+            setErrorMessage("אירעה שגיאה בשמירת האירוע לשרת");
+            setErorrKey((k) => k + 1);
+            return;
+        }
+
+        setHasEvents(true);
         
-        setAllEnets(prev => [...prev, formData] );
-        
+
 
         setFormData({
         typeActivity:{ value: "", label: "בחר/י" },
@@ -129,7 +171,7 @@ function EventForm() {
     }
 
     function goToTable() {
-        navigate ("/page1", {state: {allEvents}});
+        navigate ("/events");
     }
 
     return (
@@ -228,7 +270,7 @@ function EventForm() {
                         type= "button"
                         variant="outlined"
                         onClick={goToTable}
-                        disabled={allEvents.length === 0}
+                        disabled={!hasEvents}
                     >
                         צפה בטבלה
                     </Button>

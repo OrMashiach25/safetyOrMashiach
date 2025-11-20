@@ -2,26 +2,28 @@ import { useMemo, useState } from "react";
 import type { Option } from "../Data";
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button, IconButton, Tooltip } from "@mui/material";
 import PlaceIcon from "@mui/icons-material/Place";
-import { INDEX_LABEL,TIME_DATE_LABEL ,LOCATION_LABEL ,TYPE_ACTIVITY_LABEL ,
-    CATEGORY_OPTION_LABEL ,TYPE_UNIT_ACTIVITY_LABEL ,WEATHER_LABEL ,EVENT_DESCRIPTION_LABEL ,
-    SUB_SUBUNIY_INPUT_LABEL ,RESULTS_LABEL ,EVENT_SEVERITY_LABEL ,INJURY_LEVEL_LABEL } from "../labels";
+import {
+  INDEX_LABEL,TIME_DATE_LABEL,LOCATION_LABEL,TYPE_ACTIVITY_LABEL,CATEGORY_OPTION_LABEL,TYPE_UNIT_ACTIVITY_LABEL,
+  WEATHER_LABEL,EVENT_DESCRIPTION_LABEL,SUB_SUBUNIY_INPUT_LABEL,RESULTS_LABEL,EVENT_SEVERITY_LABEL,
+INJURY_LEVEL_LABEL} from "../labels";
 
-type FormData = {
-  typeActivity: Option;
-  categoryoption: Option;
+ export type TableEvent = {
+  typeActivity: Option | string;
+  categoryoption: Option | string;
   eventDescription: string;
-  eventSeverity: Option;
-  location: Option;
+  eventSeverity: Option | string;
+  location: Option | string;
   civilAreaCoord?: string;
-  results: Option;
-  injuryLevel: Option;
+  results: Option | string;
+  injuryLevel: Option | string;
   subSubUnitInput: string;
-  timeDate: string;
-  weather: Option;
-  typeUnitActivity: Option;
+  timeDate?: string;  
+  Date?: string;
+  weather: Option | string;
+  typeUnitActivity: Option | string;
 };
 
-type Props = { allEvents: FormData[] };
+type Props = { allEvents: TableEvent[] };
 
 type ColKey =
   | "timeDate"
@@ -39,9 +41,9 @@ type ColKey =
 type SortDir = "asc" | "desc";
 type Column = {
   header: string;
-  key?: ColKey;        
-  sortable?: boolean;  
-  isIndex?: boolean;  
+  key?: ColKey;
+  sortable?: boolean;
+  isIndex?: boolean;
 };
 
 const COLUMNS: Column[] = [
@@ -66,17 +68,33 @@ function ObjectTable({ allEvents }: Props) {
   const [coordViewOpen, setCoordViewOpen] = useState(false);
   const [coordToView, setCoordToView] = useState<string>("");
 
-   function isCivilArea(opt: Option | undefined | null) {
-      if (!opt) return false;
-      return opt.label === "שטח אזרחי" || opt.value === "civilian_area" || opt.value === "civil_area";
+  function isCivilArea(opt: Option | string | undefined | null) {
+    if (!opt) return false;
+
+    if (typeof opt === "string") {
+      return opt === "civilian_area" || opt === "civil_area" || opt === "שטח אזרחי";
+    }
+
+    return (
+      opt.label === "שטח אזרחי" ||
+      opt.value === "civilian_area" ||
+      opt.value === "civil_area"
+    );
   }
 
-  function getVal(row: FormData, key: ColKey): string {
-    const v: any = row[key as keyof FormData];
-    if (v === null) return "";
+  function getVal(row: TableEvent, key: ColKey): string {
+    if (key === "timeDate") {
+      const raw = row.timeDate ?? row.Date ?? "";
+      return String(raw);
+    }
+
+    const v: any = (row as any)[key];
+    if (v == null) return "";
+
     if (typeof v === "object" && ("label" in v || "value" in v)) {
       return String(v.label ?? v.value ?? "");
     }
+
     return String(v);
   }
 
@@ -103,87 +121,102 @@ function ObjectTable({ allEvents }: Props) {
     });
   }, [allEvents, sortKey, sortDir]);
 
-return (
-  <>
-    <table className="events-table" dir="rtl">
-      <thead>
-        <tr>
-          {COLUMNS.map((col, idx) => (
-            <th key={idx}>
-              <span style={{ display: "inline-flex", gap: 3, alignItems: "center" }}>
-                {col.header}
-                {col.sortable && col.key && (
-                  col.key === sortKey ? (
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setSortKey(null);
-                        setSortDir("asc");
-                      }}
-                      title="בטל מיון"
-                      style={{
-                        border: "none",
-                        background: "transparent",
-                        padding: 0,
-                        cursor: "pointer",
-                        fontSize: 12,
-                      }}
-                    >
-                      {sortDir === "asc" ? "↑" : "↓"}
-                    </button>
-                  ) : (
-                    <span style={{ display: "inline-flex", gap: 6, alignItems: "center" }}>
+  return (
+    <>
+      <table className="events-table" dir="rtl">
+        <thead>
+          <tr>
+            {COLUMNS.map((col, idx) => (
+              <th key={idx}>
+                <span style={{ display: "inline-flex", gap: 3, alignItems: "center" }}>
+                  {col.header}
+                  {col.sortable && col.key && (
+                    col.key === sortKey ? (
                       <button
                         type="button"
-                        onClick={() => sortBy(col.key!, "asc")}
-                        title="מיין ↑"
-                        style={{ border: "none", background: "transparent", padding: 0, cursor: "pointer", fontSize: 12 }}
+                        onClick={() => {
+                          setSortKey(null);
+                          setSortDir("asc");
+                        }}
+                        title="בטל מיון"
+                        style={{
+                          border: "none",
+                          background: "transparent",
+                          padding: 0,
+                          cursor: "pointer",
+                          fontSize: 12,
+                        }}
                       >
-                        ↑
+                        {sortDir === "asc" ? "↑" : "↓"}
                       </button>
-                      <button
-                        type="button"
-                        onClick={() => sortBy(col.key!, "desc")}
-                        title="מיין ↓"
-                        style={{ border: "none", background: "transparent", padding: 0, cursor: "pointer", fontSize: 12 }}
-                      >
-                        ↓
-                      </button>
-                    </span>
-                  )
-                )}
-              </span>
-            </th>
-          ))}
-        </tr>
-      </thead>
+                    ) : (
+                      <span style={{ display: "inline-flex", gap: 6, alignItems: "center" }}>
+                        <button
+                          type="button"
+                          onClick={() => sortBy(col.key!, "asc")}
+                          title="מיין ↑"
+                          style={{ border: "none", background: "transparent", padding: 0, cursor: "pointer", fontSize: 12 }}
+                        >
+                          ↑
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => sortBy(col.key!, "desc")}
+                          title="מיין ↓"
+                          style={{ border: "none", background: "transparent", padding: 0, cursor: "pointer", fontSize: 12 }}
+                        >
+                          ↓
+                        </button>
+                      </span>
+                    )
+                  )}
+                </span>
+              </th>
+            ))}
+          </tr>
+        </thead>
 
-      <tbody>
-        {displayedRows.map((row, i) => (
-          <tr key={i}>
-            {COLUMNS.map((col, j) => {
-              if (col.isIndex) {
-                return (
-                  <td key={j} style={{ textAlign: "center" }}>
-                    {i + 1}
-                  </td>
-                );
-              }
+        <tbody>
+          {displayedRows.map((row, i) => (
+            <tr key={i}>
+              {COLUMNS.map((col, j) => {
+                if (col.isIndex) {
+                  return (
+                    <td key={j} style={{ textAlign: "center" }}>
+                      {i + 1}
+                    </td>
+                  );
+                }
 
-              if (!col.key) return <td key={j} />;
+                if (!col.key) return <td key={j} />;
 
-              if (col.key === "injuryLevel") {
-                const lbl = row.injuryLevel?.label;
-                const showDash = !lbl || lbl === "בחר/י";
-                return (
-                  <td key={j} style={{ textAlign: showDash ? "center" : "right" }}>
-                    {showDash ? "-" : lbl}
-                  </td>
-                );
-              }
-              if (col.key === "location") {
-                  const label = getVal(row, "location");
+                if (col.key === "injuryLevel") {
+                  const v: any = row.injuryLevel;
+                  const lbl =
+                    v == null
+                      ? ""
+                      : typeof v === "object"
+                        ? v.label
+                        : String(v);
+
+                  const showDash = !lbl || lbl === "בחר/י";
+
+                  return (
+                    <td key={j} style={{ textAlign: showDash ? "center" : "right" }}>
+                      {showDash ? "-" : lbl}
+                    </td>
+                  );
+                }
+
+                if (col.key === "location") {
+                  const loc: any = row.location;
+                  const label =
+                    typeof loc === "object"
+                      ? loc.label ?? loc.value ?? ""
+                      : String(loc ?? "");
+
                   const showIcon = isCivilArea(row.location) && !!row.civilAreaCoord;
+
                   return (
                     <td key={j}>
                       <span style={{ display: "inline-flex", gap: 6, alignItems: "center" }}>
@@ -207,23 +240,25 @@ return (
                   );
                 }
 
-              return <td key={j}>{getVal(row, col.key)}</td>;
-            })}
-          </tr>
-        ))}
-      </tbody>
-    </table>
+                return <td key={j}>{getVal(row, col.key)}</td>;
+              })}
+            </tr>
+          ))}
+        </tbody>
+      </table>
 
       <Dialog open={coordViewOpen} onClose={() => setCoordViewOpen(false)} dir="rtl">
-          <DialogTitle>נ״צ (תצוגה בלבד)</DialogTitle>
-              <DialogContent>
-                <div style={{ fontFamily: "monospace", fontSize: 16, direction: "ltr", marginTop: 6 }}>
-                  {coordToView}
-                </div>
-              </DialogContent>
-              <DialogActions>
-                <Button onClick={() => setCoordViewOpen(false)} variant="contained">סגור</Button>
-              </DialogActions>
+        <DialogTitle>נ״צ (תצוגה בלבד)</DialogTitle>
+        <DialogContent>
+          <div style={{ fontFamily: "monospace", fontSize: 16, direction: "ltr", marginTop: 6 }}>
+            {coordToView}
+          </div>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setCoordViewOpen(false)} variant="contained">
+            סגור
+          </Button>
+        </DialogActions>
       </Dialog>
     </>
   );
