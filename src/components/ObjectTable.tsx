@@ -1,13 +1,18 @@
 import { useMemo, useState } from "react";
 import type { Option } from "../Data";
-import { Dialog, DialogTitle, DialogContent, DialogActions, Button, IconButton, Tooltip } from "@mui/material";
+import {Dialog, DialogTitle, DialogContent, DialogActions, Button, IconButton, Tooltip} from "@mui/material";
 import PlaceIcon from "@mui/icons-material/Place";
-import {
-  INDEX_LABEL,TIME_DATE_LABEL,LOCATION_LABEL,TYPE_ACTIVITY_LABEL,CATEGORY_OPTION_LABEL,TYPE_UNIT_ACTIVITY_LABEL,
-  WEATHER_LABEL,EVENT_DESCRIPTION_LABEL,SUB_SUBUNIY_INPUT_LABEL,RESULTS_LABEL,EVENT_SEVERITY_LABEL,
-INJURY_LEVEL_LABEL} from "../labels";
+import EditRoundedIcon from "@mui/icons-material/EditRounded";
+import DeleteForeverRoundedIcon from "@mui/icons-material/DeleteForeverRounded";
+import { INDEX_LABEL, TIME_DATE_LABEL, LOCATION_LABEL, TYPE_ACTIVITY_LABEL, CATEGORY_OPTION_LABEL,
+  TYPE_UNIT_ACTIVITY_LABEL, WEATHER_LABEL, EVENT_DESCRIPTION_LABEL, SUB_SUBUNIY_INPUT_LABEL, RESULTS_LABEL,
+  EVENT_SEVERITY_LABEL, INJURY_LEVEL_LABEL} from "../labels";
+import {activityTypeArr, categoryArr, eventSeverityArr, locationArr, resultsArr, injuriesLevelArr,
+  unitActivityTypeArr, weatherArr} from "../Data"
 
- export type TableEvent = {
+
+export type TableEvent = {
+  Index: number;
   typeActivity: Option | string;
   categoryoption: Option | string;
   eventDescription: string;
@@ -17,13 +22,17 @@ INJURY_LEVEL_LABEL} from "../labels";
   results: Option | string;
   injuryLevel: Option | string;
   subSubUnitInput: string;
-  timeDate?: string;  
+  timeDate?: string;
   Date?: string;
   weather: Option | string;
   typeUnitActivity: Option | string;
 };
 
-type Props = { allEvents: TableEvent[] };
+type Props = {
+  allEvents: TableEvent[];
+  onDelete: (id: number) => void;
+  onEdit: (event: TableEvent) => void;
+};
 
 type ColKey =
   | "timeDate"
@@ -39,6 +48,7 @@ type ColKey =
   | "injuryLevel";
 
 type SortDir = "asc" | "desc";
+
 type Column = {
   header: string;
   key?: ColKey;
@@ -61,7 +71,23 @@ const COLUMNS: Column[] = [
   { header: INJURY_LEVEL_LABEL, key: "injuryLevel", sortable: true },
 ];
 
-function ObjectTable({ allEvents }: Props) {
+const makeValueMap = (opts: Option[]) =>
+  Object.fromEntries(opts.map((o) => [String(o.value), String(o.label)]));
+
+const VALUE_MAPS = {
+  location: makeValueMap(locationArr),
+  typeActivity: makeValueMap(activityTypeArr),
+  categoryoption: makeValueMap(categoryArr),
+  eventSeverity: makeValueMap(eventSeverityArr),
+  typeUnitActivity: makeValueMap(unitActivityTypeArr),
+  weather: makeValueMap(weatherArr),
+  results: makeValueMap(resultsArr),
+  injuryLevel: makeValueMap(injuriesLevelArr),
+} as const;
+
+
+
+function ObjectTable({ allEvents, onDelete, onEdit }: Props) {
   const [sortKey, setSortKey] = useState<ColKey | null>(null);
   const [sortDir, setSortDir] = useState<SortDir>("asc");
 
@@ -95,7 +121,13 @@ function ObjectTable({ allEvents }: Props) {
       return String(v.label ?? v.value ?? "");
     }
 
-    return String(v);
+    const str = String(v);
+    const map = (VALUE_MAPS as any)[key];
+    if(map && map[str]){
+      return map[str];
+    }
+
+    return str;
   }
 
   function sortBy(key: ColKey, dir: SortDir) {
@@ -126,6 +158,8 @@ function ObjectTable({ allEvents }: Props) {
       <table className="events-table" dir="rtl">
         <thead>
           <tr>
+            <th style={{ width: 90 }}>פעולות</th>
+
             {COLUMNS.map((col, idx) => (
               <th key={idx}>
                 <span style={{ display: "inline-flex", gap: 3, alignItems: "center" }}>
@@ -179,6 +213,32 @@ function ObjectTable({ allEvents }: Props) {
         <tbody>
           {displayedRows.map((row, i) => (
             <tr key={i}>
+
+              <td
+                style={{
+                  textAlign: "center",
+                  whiteSpace: "nowrap",
+                  padding: "4px 8px",
+                }}
+              >
+                <IconButton
+                  size="small"
+                  onClick={() => onEdit(row)}
+                  aria-label="edit"
+                >
+                  <EditRoundedIcon />
+                </IconButton>
+
+                <IconButton
+                  size="small"
+                  onClick={() => onDelete(row.Index)}
+                  aria-label="delete"
+                  style={{ marginLeft: 6 }}
+                >
+                  <DeleteForeverRoundedIcon />
+                </IconButton>
+              </td>
+
               {COLUMNS.map((col, j) => {
                 if (col.isIndex) {
                   return (
@@ -191,14 +251,7 @@ function ObjectTable({ allEvents }: Props) {
                 if (!col.key) return <td key={j} />;
 
                 if (col.key === "injuryLevel") {
-                  const v: any = row.injuryLevel;
-                  const lbl =
-                    v == null
-                      ? ""
-                      : typeof v === "object"
-                        ? v.label
-                        : String(v);
-
+                  const lbl = getVal(row,"injuryLevel");
                   const showDash = !lbl || lbl === "בחר/י";
 
                   return (
@@ -209,13 +262,8 @@ function ObjectTable({ allEvents }: Props) {
                 }
 
                 if (col.key === "location") {
-                  const loc: any = row.location;
-                  const label =
-                    typeof loc === "object"
-                      ? loc.label ?? loc.value ?? ""
-                      : String(loc ?? "");
-
-                  const showIcon = isCivilArea(row.location) && !!row.civilAreaCoord;
+                  const label= getVal (row, "location");
+                  const showIcon = isCivilArea(row.location);
 
                   return (
                     <td key={j}>
@@ -242,6 +290,7 @@ function ObjectTable({ allEvents }: Props) {
 
                 return <td key={j}>{getVal(row, col.key)}</td>;
               })}
+
             </tr>
           ))}
         </tbody>
@@ -250,7 +299,14 @@ function ObjectTable({ allEvents }: Props) {
       <Dialog open={coordViewOpen} onClose={() => setCoordViewOpen(false)} dir="rtl">
         <DialogTitle>נ״צ (תצוגה בלבד)</DialogTitle>
         <DialogContent>
-          <div style={{ fontFamily: "monospace", fontSize: 16, direction: "ltr", marginTop: 6 }}>
+          <div
+            style={{
+              fontFamily: "monospace",
+              fontSize: 16,
+              direction: "ltr",
+              marginTop: 6,
+            }}
+          >
             {coordToView}
           </div>
         </DialogContent>

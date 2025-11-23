@@ -138,3 +138,10 @@
 }
 
 
+/*--------------------------------------*/ 
+/* Formatting headings in an edit form */ 
+/*--------------------------------------*/ 
+
+.edit-field .MuiInputLabel-root.MuiInputLabel-shrink {
+  transform: translate(120px, -6px) scale(0.75); 
+}

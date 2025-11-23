@@ -1,3 +1,4 @@
+import type { TableEvent } from "../components/ObjectTable";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -13,6 +14,7 @@ export type EventPayload ={
     subSubUnitInput: string;
     results: string;
     injuryLevel: string;
+    civilAreaCoord?: string;
 };
 
 
@@ -40,6 +42,33 @@ export async function createEvent(payload: EventPayload) {
 
   if (!res.ok) {
     throw new Error("Failed to create event");
+  }
+
+  return res.json();
+}
+
+export async function deleteEvent(id: number): Promise<void> {
+  const res = await fetch(`${API_URL}/events/${id}`, {
+    method: "DELETE",
+  });
+
+  if (!res.ok) {
+    throw new Error("Failed to delete event");
+  }
+}
+
+export async function updateEvent(
+  id: number,
+  payload: EventPayload
+): Promise<TableEvent> {
+  const res = await fetch(`${API_URL}/events/${id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  });
+
+  if (!res.ok) {
+    throw new Error("Failed to update event");
   }
 
   return res.json();

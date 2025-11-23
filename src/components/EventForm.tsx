@@ -139,6 +139,7 @@ function EventForm() {
             subSubUnitInput: formData.subSubUnitInput,
             results: formData.results.value,
             injuryLevel: formData.injuryLevel.value,
+            civilAreaCoord: formData.civilAreaCoord,
         };
 
         try {
