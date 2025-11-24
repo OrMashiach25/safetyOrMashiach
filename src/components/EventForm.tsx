@@ -176,171 +176,173 @@ function EventForm() {
     }
 
     return (
-        <div>
-            <h1 className="event-form-title"> יצירת אירוע חדש</h1>
-            <form onSubmit={handleSubmit}>
-                <div className="event-form">
-                    <div className="field">
-                        <TimeAndDate
+        <div className="event-form-page">
+            <div className="event-form-card">
+                <h1 className="event-form-title"> יצירת אירוע חדש</h1>
+                <form onSubmit={handleSubmit}>
+                    <div className="event-form">
+                        <div className="field">
+                            <TimeAndDate
+                        
+                            value={formData.timeDate}
+                            onChange={(v: string) => updateField("timeDate", v)}
+                            />
+                        </div>
+
+                        <div className="field">
+                            <LocationSelect
+                                value={formData.location}
+                                onChange={(v) => {
+                                    setPrevLocation(formData.location);
+
+                                    if (isCivilArea(v)) {
+                                    setPendingCivilLoc(v);
+                                    setCoordDraft(formData.civilAreaCoord || "");
+                                    setCoordError("");
+                                    setCoordDialogOpen(true);
+                                    } else {
+                                    updateField("location", v);
+                                    updateField("civilAreaCoord", "");
+                                    }
+                                }}
+                            />
+                        </div>
+                        <div className="field">
+                            <ActivityType
+                            value={formData.typeActivity}
+                            onChange={(v) => updateField("typeActivity", v)}
+                            />
+                        </div>
+                        <div className="field">
+                            <Category
+                            value={formData.categoryoption}
+                            onChange={(v) => updateField("categoryoption", v)}
+                            />
+                        </div>
+                        <div className="field">
+                            <EventSeverity
+                            value={formData.eventSeverity}
+                            onChange={(v) => updateField("eventSeverity", v)}
+                            />
+                        </div>
+                        <div className="field">
+                            <UnitActivityType
+                            value={formData.typeUnitActivity}
+                            onChange={(v) => updateField("typeUnitActivity", v)}
+                            />
+                        </div>
+                        <div className="field">
+                            <Weather
+                            value={formData.weather}
+                            onChange={(v) => updateField("weather", v)}
+                            />
+                        </div>
+                        <div className="field">
+                            <SubSubUnitInput
+                            value={formData.subSubUnitInput}
+                            onChange={(v) => updateField("subSubUnitInput", v)}
+                            />
+                        </div>
+                        <div className="results-wrapper">
+                            <Results
+                            value={formData.results}
+                            onChange={(v) => updateField("results", v)}
+                            injuryLevel={formData.injuryLevel}
+                            onChangeInjury={(v) => updateField("injuryLevel", v)}
+                            />
+                        </div>
+                        <div className="field">
+                            <DescriptionEvent
+                            value={formData.eventDescription}
+                            onChange={(v) => updateField("eventDescription", v)}
+                            />
+                        </div>
+
+                    </div>
+
+                    {errorMessage && <MuiErorrAlert key={erorrKey} message={errorMessage} duration={3000}/>}
                     
-                        value={formData.timeDate}
-                        onChange={(v: string) => updateField("timeDate", v)}
-                        />
-                    </div>
+                    <div style={{display: "flex", gap: 12,marginTop:12, margin:20 }}>
+                        <Button type="submit" variant="contained" color="primary"
+                        >
+                            הוסף אירוע
+                        </Button>
 
-                    <div className="field">
-                        <LocationSelect
-                            value={formData.location}
-                            onChange={(v) => {
-                                setPrevLocation(formData.location);
-
-                                if (isCivilArea(v)) {
-                                setPendingCivilLoc(v);
-                                setCoordDraft(formData.civilAreaCoord || "");
-                                setCoordError("");
-                                setCoordDialogOpen(true);
-                                } else {
-                                updateField("location", v);
-                                updateField("civilAreaCoord", "");
-                                }
-                            }}
-                        />
+                        <Button
+                            type= "button"
+                            variant="outlined"
+                            onClick={goToTable}
+                            disabled={!hasEvents}
+                        >
+                            צפה בטבלה
+                        </Button>
                     </div>
-                    <div className="field">
-                        <ActivityType
-                        value={formData.typeActivity}
-                        onChange={(v) => updateField("typeActivity", v)}
-                        />
-                    </div>
-                    <div className="field">
-                        <Category
-                        value={formData.categoryoption}
-                        onChange={(v) => updateField("categoryoption", v)}
-                        />
-                    </div>
-                    <div className="field">
-                        <EventSeverity
-                        value={formData.eventSeverity}
-                        onChange={(v) => updateField("eventSeverity", v)}
-                        />
-                    </div>
-                    <div className="field">
-                        <UnitActivityType
-                        value={formData.typeUnitActivity}
-                        onChange={(v) => updateField("typeUnitActivity", v)}
-                        />
-                    </div>
-                    <div className="field">
-                        <Weather
-                        value={formData.weather}
-                        onChange={(v) => updateField("weather", v)}
-                        />
-                    </div>
-                    <div className="field">
-                        <SubSubUnitInput
-                        value={formData.subSubUnitInput}
-                        onChange={(v) => updateField("subSubUnitInput", v)}
-                        />
-                    </div>
-                    <div className="results-wrapper">
-                        <Results
-                        value={formData.results}
-                        onChange={(v) => updateField("results", v)}
-                        injuryLevel={formData.injuryLevel}
-                        onChangeInjury={(v) => updateField("injuryLevel", v)}
-                        />
-                    </div>
-                    <div className="field">
-                        <DescriptionEvent
-                        value={formData.eventDescription}
-                        onChange={(v) => updateField("eventDescription", v)}
-                        />
-                    </div>
+                </form>
 
-                </div>
+                <Dialog open={coordDialogOpen} onClose={() => {}} dir="rtl">
+                    <DialogTitle>הזן/י נ״צ לשטח אזרחי</DialogTitle>
+                    <DialogContent>
+                        <TextField
+                        className="coordField"
+                        autoFocus
+                        fullWidth
+                        margin="dense"
+                        label='פורמט: (123456,654321)'
+                        placeholder="(123456,654321)"
+                        value={coordDraft}
+                        onChange={(e) => { setCoordDraft(e.target.value); if (coordError) setCoordError(""); }}
+                        error={!!coordError}
+                        helperText={coordError || "זהו שדה חובה"}
+                        slotProps={{
+                            htmlInput: {
+                                dir: "ltr",
+                                inputMode: "numeric",
+                                pattern: String.raw`\(\d{6},\s*\d{6}\)`,
+                            },
+                        }}
+                        />
+                    </DialogContent>
 
-                {errorMessage && <MuiErorrAlert key={erorrKey} message={errorMessage} duration={3000}/>}
-                
-                <div style={{display: "flex", gap: 12,marginTop:12, margin:20 }}>
-                    <Button type="submit" variant="contained" color="primary"
-                    >
-                        הוסף אירוע
-                    </Button>
+                    <DialogActions sx={{ justifyContent: "space-between" }}>
+                        <Button
+                        onClick={() => {
+                            setCoordDialogOpen(false);
+                            setCoordDraft("");
+                            setCoordError("");
+                            setPendingCivilLoc(null);
+                            if (prevLocation) {
+                            updateField("location", prevLocation);
+                            }
+                        }}
+                        >
+                        ביטול
+                        </Button>
 
-                    <Button
-                        type= "button"
-                        variant="outlined"
-                        onClick={goToTable}
-                        disabled={!hasEvents}
-                    >
-                        צפה בטבלה
-                    </Button>
-                </div>
-            </form>
+                        <Button
+                        variant="contained"
+                        onClick={() => {
+                            if (!validateCoord(coordDraft)) {
+                            setCoordError("נ״צ לא תקין");
+                            return;
+                            }
+                            const normalized = normalizeCoord(coordDraft);
+                            if (!normalized || !pendingCivilLoc) {
+                            setCoordError("שגיאה בשמירת הנ״צ. נסה/י שוב.");
+                            return;
+                            }
 
-            <Dialog open={coordDialogOpen} onClose={() => {}} dir="rtl">
-                <DialogTitle>הזן/י נ״צ לשטח אזרחי</DialogTitle>
-                <DialogContent>
-                    <TextField
-                    className="coordField"
-                    autoFocus
-                    fullWidth
-                    margin="dense"
-                    label='פורמט: (123456,654321)'
-                    placeholder="(123456,654321)"
-                    value={coordDraft}
-                    onChange={(e) => { setCoordDraft(e.target.value); if (coordError) setCoordError(""); }}
-                    error={!!coordError}
-                    helperText={coordError || "זהו שדה חובה"}
-                    slotProps={{
-                        htmlInput: {
-                            dir: "ltr",
-                            inputMode: "numeric",
-                            pattern: String.raw`\(\d{6},\s*\d{6}\)`,
-                        },
-                    }}
-                    />
-                </DialogContent>
+                            updateField("location", pendingCivilLoc);
+                            updateField("civilAreaCoord", normalized);
 
-                <DialogActions sx={{ justifyContent: "space-between" }}>
-                    <Button
-                    onClick={() => {
-                        setCoordDialogOpen(false);
-                        setCoordDraft("");
-                        setCoordError("");
-                        setPendingCivilLoc(null);
-                        if (prevLocation) {
-                        updateField("location", prevLocation);
-                        }
-                    }}
-                    >
-                    ביטול
-                    </Button>
-
-                    <Button
-                    variant="contained"
-                    onClick={() => {
-                        if (!validateCoord(coordDraft)) {
-                        setCoordError("נ״צ לא תקין");
-                        return;
-                        }
-                        const normalized = normalizeCoord(coordDraft);
-                        if (!normalized || !pendingCivilLoc) {
-                        setCoordError("שגיאה בשמירת הנ״צ. נסה/י שוב.");
-                        return;
-                        }
-
-                        updateField("location", pendingCivilLoc);
-                        updateField("civilAreaCoord", normalized);
-
-                        setCoordDialogOpen(false);
-                        setPendingCivilLoc(null);
-                    }}
-                    >
-                    שמירה
-                    </Button>
-                </DialogActions>
-            </Dialog>
+                            setCoordDialogOpen(false);
+                            setPendingCivilLoc(null);
+                        }}
+                        >
+                        שמירה
+                        </Button>
+                    </DialogActions>
+                </Dialog>
+            </div> 
         </div>
     );
 }

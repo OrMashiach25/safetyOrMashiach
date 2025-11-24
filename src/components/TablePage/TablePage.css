@@ -1,0 +1,43 @@
+/*--------------------------------------*/ 
+/* Object table designs */ 
+/*--------------------------------------*/ 
+
+.events-table {
+    margin: 2px auto;
+    border-collapse: collapse; 
+    table-layout: fixed;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.table-page-title{
+  text-decoration: underline;
+}
+
+.events-table th, .events-table td {
+  border: 2px solid #c4c4c4;
+  padding: 8px;
+  word-break: keep-all;
+  text-align: center;
+}
+
+.events-table thead th {
+  text-align: center;
+  vertical-align: middle;
+  background: #f7ecec;
+  font-weight: bold;
+}
+
+.dark .events-table,
+.dark .events-table th,
+.dark .events-table td,
+.dark .events-table button{
+  background: #2b2c2d;
+  color: #c1bfbd;
+  border-color: #7e776c;
+}
+
+.dark .events-table thead th {
+  background-color: #3c2828;
+}
+

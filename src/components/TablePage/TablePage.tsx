@@ -10,6 +10,7 @@ import {fetchEvents, deleteEvent, updateEvent, type EventPayload } from "../../a
 import type { Option } from "../../Data";
 import {activityTypeArr, categoryArr, eventSeverityArr, locationArr, resultsArr, injuriesLevelArr,
   unitActivityTypeArr, weatherArr} from "../../Data"
+import "../TablePage/TablePage.css"
 
 type EditFieldKey =
   | "Date"
@@ -221,7 +222,6 @@ return (
           const value = editValues[field.key] ?? "";
           const selectOptions = FIELD_OPTIONS[field.key];
 
-          // 👇 קודם בודקים אם זה שדה נ"צ – לפני כל דבר אחר
           if (field.key === "civilAreaCoord") {
             return (
               <TextField
@@ -235,7 +235,7 @@ return (
                   inputLabel: { shrink: true },
                 }}
                 value={value}
-                disabled={!isCivilAreaValue(editValues.location)} // ⭐ מושבת אם לא שטח אזרחי
+                disabled={!isCivilAreaValue(editValues.location)}
                 onChange={(e) =>
                   setEditValues((prev) => ({
                     ...prev,
@@ -246,7 +246,6 @@ return (
             );
           }
 
-          // שדות עם options => Select
           if (selectOptions && selectOptions.length > 0) {
             return (
               <TextField
@@ -277,7 +276,6 @@ return (
             );
           }
 
-          // שאר השדות הרגילים
           return (
             <TextField
               className="edit-field"

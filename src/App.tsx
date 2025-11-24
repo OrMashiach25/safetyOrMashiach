@@ -1,7 +1,7 @@
 import "./App.css"; 
 import Navbar from "./components/NavbarComponents/Navber";
 import EventForm from "./components/EventForm";
-import NewPage from "./components/TablePageComponents/TablePage";
+import NewPage from "./components/TablePage/TablePage";
 import { BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import { ThemeProvider, CssBaseline } from "@mui/material";
 import { useColorMode } from "./hooks/useColorMode";
