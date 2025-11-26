@@ -3,11 +3,13 @@
 /*--------------------------------------*/ 
 
 .events-table {
-    margin: 2px auto;
-    border-collapse: collapse; 
-    table-layout: fixed;
-    border-radius: 8px;
-    overflow: hidden;
+  margin: 20px auto;
+  width: 95%;
+  max-width: 1500px;
+  border-spacing: 0;
+  overflow: hidden;
+  background-color: #ffffff;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
 }
 
 .table-page-title{
@@ -15,18 +17,25 @@
 }
 
 .events-table th, .events-table td {
-  border: 2px solid #c4c4c4;
-  padding: 8px;
+  border: none;
+  border-bottom: 1px solid #e0e0e0;
+  padding: 10px 12px;
   word-break: keep-all;
   text-align: center;
+  font-size: 14px;
 }
 
 .events-table thead th {
-  text-align: center;
-  vertical-align: middle;
-  background: #f7ecec;
-  font-weight: bold;
+  background: #e7e9e8;
+  font-weight: 600;
+  border-bottom: 2px solid #d0d0d0;
 }
+
+.events-table tbody tr:nth-child(even) {
+  background-color: #fafafa;
+}
+
+
 
 .dark .events-table,
 .dark .events-table th,
@@ -35,9 +44,20 @@
   background: #2b2c2d;
   color: #c1bfbd;
   border-color: #7e776c;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
 }
 
 .dark .events-table thead th {
   background-color: #3c2828;
 }
 
+
+.events-table-actions .MuiIconButton-root {
+  padding: 2px;
+}
+
+.events-table-actions-buttons {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+}

@@ -214,29 +214,25 @@ function ObjectTable({ allEvents, onDelete, onEdit }: Props) {
           {displayedRows.map((row, i) => (
             <tr key={i}>
 
-              <td
-                style={{
-                  textAlign: "center",
-                  whiteSpace: "nowrap",
-                  padding: "4px 8px",
-                }}
-              >
-                <IconButton
-                  size="small"
-                  onClick={() => onEdit(row)}
-                  aria-label="edit"
-                >
-                  <EditRoundedIcon />
-                </IconButton>
+              <td className="events-table-actions">
+                <span className="events-table-actions-buttons">
+                  <IconButton
+                    size="small"
+                    onClick={() => onEdit(row)}
+                    aria-label="edit"
+                  >
+                    <EditRoundedIcon />
+                  </IconButton>
 
-                <IconButton
-                  size="small"
-                  onClick={() => onDelete(row.Index)}
-                  aria-label="delete"
-                  style={{ marginLeft: 6 }}
-                >
-                  <DeleteForeverRoundedIcon />
-                </IconButton>
+                  <IconButton
+                    size="small"
+                    onClick={() => onDelete(row.Index)}
+                    aria-label="delete"
+                    style={{ marginLeft: 6 }}
+                  >
+                    <DeleteForeverRoundedIcon />
+                  </IconButton>
+                </span>
               </td>
 
               {COLUMNS.map((col, j) => {
