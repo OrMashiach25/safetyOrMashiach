@@ -2,56 +2,28 @@ import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import type { Option } from "../Data";
 import { Button, Dialog, DialogTitle, DialogContent, DialogActions, TextField } from "@mui/material";
-import ActivityType from "./InputComponents/ActivityType";
-import Category from "./InputComponents/Category";
-import DescriptionEvent from "./InputComponents/DescriptionEvent";
-import EventSeverity from "./InputComponents/EventSeverity";
-import LocationSelect from "./InputComponents/Location";
-import Results from "./InputComponents/Results";
-import SubSubUnitInput from "./InputComponents/SubUnitInput";
-import TimeAndDate from "./InputComponents/TimeAndDate";
-import Weather from "./InputComponents/Weather";
-import UnitActivityType from "./InputComponents/UnitActivityType";
+import ActivityType from "./Inputs/ActivityType";
+import Category from "./Inputs/Category";
+import DescriptionEvent from "./Inputs/DescriptionEvent";
+import EventSeverity from "./Inputs/EventSeverity";
+import LocationSelect from "./Inputs/Location";
+import Results from "./Inputs/Results";
+import SubSubUnitInput from "./Inputs/SubUnitInput";
+import TimeAndDate from "./Inputs/TimeAndDate";
+import Weather from "./Inputs/Weather";
+import UnitActivityType from "./Inputs/UnitActivityType";
 import { MuiErorrAlert } from "./MuiErrorAlert";
 import { createEvent, fetchEvents} from "../api/eventsApi";
 import type { EventPayload} from "../api/eventsApi";
+import  type { FormData } from "./eventFormConfig";
+import { initialFormData, isCivilArea, validateCoord,
+  normalizeCoord, buildEventPayload } from "./eventFormConfig";
  
-
-
-type FormData = {
-    typeActivity: Option;
-    categoryoption: Option;
-    eventDescription: string;
-    eventSeverity: Option;
-    location: Option;
-    civilAreaCoord: string;
-    results: Option;
-    injuryLevel: Option;
-    subSubUnitInput: string;
-    timeDate: string;
-    weather: Option;
-    typeUnitActivity: Option;
-}
 
 function EventForm() {
 
     const navigate = useNavigate();
-    
-    const [formData, setFormData] = useState<FormData>({
-    typeActivity:{ value: "", label: "בחר/י" },
-    categoryoption:{ value: "", label: "בחר/י" },
-    eventDescription:"", 
-    eventSeverity:{ value: "", label: "בחר/י" },
-    location:{ value: "", label: "בחר/י" },
-    civilAreaCoord:"",
-    results:{ value: "", label: "בחר/י" },
-    injuryLevel:{ value: "", label: "בחר/י" },
-    subSubUnitInput: "",
-    timeDate:"",
-    weather:{ value: "", label: "בחר/י" },
-    typeUnitActivity:{ value: "", label: "בחר/י" }
-    });
-
+    const [formData, setFormData] = useState<FormData>(initialFormData);
     const [errorMessage, setErrorMessage] = useState<string>("");
     const [erorrKey , setErorrKey] = useState(0);
     const [coordDialogOpen, setCoordDialogOpen] = useState(false);
@@ -59,29 +31,11 @@ function EventForm() {
     const [coordError, setCoordError] = useState("");
     const [prevLocation, setPrevLocation] = useState<Option | null>(null);
     const [pendingCivilLoc, setPendingCivilLoc] = useState<Option | null>(null);
-
-    function normalizeCoord(v: string) {
-        const m = v.match(/\d{6}/g);
-        if (!m || m.length < 2) return null;
-        return `(${m[0]},${m[1]})`;
-    }
-
-
-    function isCivilArea(opt: Option) { 
-        return opt.label === "שטח אזרחי" || opt.value === "civilian_area"; 
-    } 
-    
-    function validateCoord(v: string) { 
-        const patt = /^\s*\(\d{6},\s*\d{6}\)\s*$/; 
-        return patt.test(v); 
-    }
+    const [hasEvents, setHasEvents] = useState(false);
 
     function updateField<K extends keyof FormData>(key: K, value: FormData[K]) {
         setFormData(prev => ({ ...prev, [key]: value }));
     }
-
-
-    const [hasEvents, setHasEvents] = useState(false);
 
     useEffect(() => {
         async function checkEvents() {
@@ -126,21 +80,7 @@ function EventForm() {
 
         setErrorMessage("");
 
-
-        const payload: EventPayload = {
-            Date: formData.timeDate,
-            location: formData.location.value,
-            typeActivity: formData.typeActivity.value,
-            categoryoption: formData.categoryoption.value,
-            eventSeverity: formData.eventSeverity.value,
-            typeUnitActivity: formData.typeUnitActivity.value,
-            weather: formData.weather.value,
-            eventDescription: formData.eventDescription,
-            subSubUnitInput: formData.subSubUnitInput,
-            results: formData.results.value,
-            injuryLevel: formData.injuryLevel.value,
-            civilAreaCoord: formData.civilAreaCoord,
-        };
+        const payload: EventPayload = buildEventPayload(formData);
 
         try {
             await createEvent(payload);
@@ -152,23 +92,7 @@ function EventForm() {
         }
 
         setHasEvents(true);
-        
-
-
-        setFormData({
-        typeActivity:{ value: "", label: "בחר/י" },
-        categoryoption:{ value: "", label: "בחר/י" },
-        eventDescription:"", 
-        eventSeverity:{ value: "", label: "בחר/י" },
-        location:{ value: "", label: "בחר/י" },
-        civilAreaCoord:"",
-        results:{ value: "", label: "בחר/י" },
-        injuryLevel:{ value: "", label: "בחר/י" },
-        subSubUnitInput: "",
-        timeDate:"",
-        weather:{ value: "", label: "בחר/י" },
-        typeUnitActivity:{ value: "", label: "בחר/י" }
-        });
+        setFormData(initialFormData);
     }
 
     function goToTable() {
@@ -183,7 +107,6 @@ function EventForm() {
                     <div className="event-form">
                         <div className="field">
                             <TimeAndDate
-                        
                             value={formData.timeDate}
                             onChange={(v: string) => updateField("timeDate", v)}
                             />

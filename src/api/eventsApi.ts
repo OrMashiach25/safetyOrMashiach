@@ -1,4 +1,4 @@
-import type { TableEvent } from "../components/ObjectTable";
+import type { TableEvent } from "../components/TablePage/ObjectTable";
 
 const API_URL = import.meta.env.VITE_API_URL;
 

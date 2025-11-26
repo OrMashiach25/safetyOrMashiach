@@ -2,8 +2,8 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import {Dialog, DialogTitle, DialogContent, DialogActions, TextField, MenuItem } from "@mui/material";
-import ObjectTable from "../ObjectTable";
-import type { TableEvent } from "../ObjectTable";
+import ObjectTable from "./ObjectTable";
+import type { TableEvent } from "./ObjectTable";
 import {TIME_DATE_LABEL, LOCATION_LABEL, TYPE_ACTIVITY_LABEL, CATEGORY_OPTION_LABEL, EVENT_SEVERITY_LABEL, TYPE_UNIT_ACTIVITY_LABEL,
   WEATHER_LABEL, EVENT_DESCRIPTION_LABEL, SUB_SUBUNIY_INPUT_LABEL, RESULTS_LABEL, INJURY_LEVEL_LABEL} from "../../labels";
 import {fetchEvents, deleteEvent, updateEvent, type EventPayload } from "../../api/eventsApi";

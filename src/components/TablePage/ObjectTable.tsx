@@ -1,14 +1,14 @@
 import { useMemo, useState } from "react";
-import type { Option } from "../Data";
+import type { Option } from "../../Data";
 import {Dialog, DialogTitle, DialogContent, DialogActions, Button, IconButton, Tooltip} from "@mui/material";
 import PlaceIcon from "@mui/icons-material/Place";
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
 import DeleteForeverRoundedIcon from "@mui/icons-material/DeleteForeverRounded";
 import { INDEX_LABEL, TIME_DATE_LABEL, LOCATION_LABEL, TYPE_ACTIVITY_LABEL, CATEGORY_OPTION_LABEL,
   TYPE_UNIT_ACTIVITY_LABEL, WEATHER_LABEL, EVENT_DESCRIPTION_LABEL, SUB_SUBUNIY_INPUT_LABEL, RESULTS_LABEL,
-  EVENT_SEVERITY_LABEL, INJURY_LEVEL_LABEL} from "../labels";
+  EVENT_SEVERITY_LABEL, INJURY_LEVEL_LABEL} from "../../labels";
 import {activityTypeArr, categoryArr, eventSeverityArr, locationArr, resultsArr, injuriesLevelArr,
-  unitActivityTypeArr, weatherArr} from "../Data"
+  unitActivityTypeArr, weatherArr} from "../../Data"
 
 
 export type TableEvent = {

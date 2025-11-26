@@ -1,5 +1,5 @@
 import "./App.css"; 
-import Navbar from "./components/NavbarComponents/Navber";
+import Navbar from "./components/Navbar/Navber";
 import EventForm from "./components/EventForm";
 import NewPage from "./components/TablePage/TablePage";
 import { BrowserRouter as Router, Routes, Route} from "react-router-dom";
