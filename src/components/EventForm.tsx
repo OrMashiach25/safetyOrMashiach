@@ -16,6 +16,8 @@ function EventForm() {
     const [formData, setFormData] = useState<FormData>(initialFormData);
     const [errorMessage, setErrorMessage] = useState<string>("");
     const [erorrKey , setErorrKey] = useState(0);
+    const [successMessage, setSuccessMessage] = useState<string>("");
+    const [successKey, setSuccessKey] = useState(0);
     const [coordDialogOpen, setCoordDialogOpen] = useState(false);
     const [coordDraft, setCoordDraft] = useState("");
     const [coordError, setCoordError] = useState("");
@@ -42,6 +44,8 @@ function EventForm() {
 
     async function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
+
+        setSuccessMessage("");
         
         const allFilled = 
             formData.timeDate.trim() !== "" &&
@@ -82,6 +86,9 @@ function EventForm() {
 
         setHasEvents(true);
         setFormData(initialFormData);
+
+         setSuccessMessage("האירוע נוסף בהצלחה");
+        setSuccessKey((k) => k + 1);
     }
 
     function goToTable() {
@@ -107,7 +114,22 @@ function EventForm() {
                         /> 
                     </div>
 
-                    {errorMessage && <MuiErorrAlert key={erorrKey} message={errorMessage} duration={3000}/>}
+                    {errorMessage && (
+                        <MuiErorrAlert 
+                            key={`error-${erorrKey}`} 
+                            message={errorMessage} 
+                            duration={3000}
+                            severity="error"
+                        />
+                    )}
+                    {successMessage && (
+                        <MuiErorrAlert
+                            key={`success-${successKey}`}
+                            message={successMessage}
+                            duration={3000}
+                            severity="success" 
+                        />
+                    )}
                     
                     <div style={{display: "flex", gap: 12,marginTop:12, margin:20 }}>
                         <Button type="submit" variant="contained" color="primary"

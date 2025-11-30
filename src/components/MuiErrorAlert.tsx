@@ -1,13 +1,14 @@
-import { Stack ,Alert} from "@mui/material"
+import { Stack ,Alert, type AlertColor} from "@mui/material"
 import { useEffect, useState } from "react";
 
 
 type Props = {
     message: string;
     duration?: number;
+    severity?:AlertColor; 
 };
 
-export const MuiErorrAlert = ({ message , duration = 3000 }: Props) => {
+export const MuiErorrAlert = ({ message , duration = 3000 , severity = "error"}: Props) => {
     const [visible, setVisible] = useState(true);
 
     useEffect(() => {
@@ -26,7 +27,7 @@ export const MuiErorrAlert = ({ message , duration = 3000 }: Props) => {
 
             }}
         > 
-            <Alert severity='error'>{message}</Alert>
+            <Alert severity={severity}>{message}</Alert>
         </Stack>
     );
 };
