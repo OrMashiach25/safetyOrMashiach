@@ -94,6 +94,10 @@ function ObjectTable({ allEvents, onDelete, onEdit }: Props) {
   const [coordViewOpen, setCoordViewOpen] = useState(false);
   const [coordToView, setCoordToView] = useState<string>("");
 
+  const [confirmOpen, setConfirmOpen] = useState(false);
+  const [pendingDeleteId, setPendingDeleteId] = useState<number | null>(null);
+
+
   function isCivilArea(opt: Option | string | undefined | null) {
     if (!opt) return false;
 
@@ -226,7 +230,10 @@ function ObjectTable({ allEvents, onDelete, onEdit }: Props) {
 
                   <IconButton
                     size="small"
-                    onClick={() => onDelete(row.Index)}
+                    onClick={() => {
+                      setPendingDeleteId(row.Index);
+                      setConfirmOpen(true);
+                    }}
                     aria-label="delete"
                     style={{ marginLeft: 6 }}
                   >
@@ -312,6 +319,57 @@ function ObjectTable({ allEvents, onDelete, onEdit }: Props) {
           </Button>
         </DialogActions>
       </Dialog>
+            <Dialog open={coordViewOpen} onClose={() => setCoordViewOpen(false)} dir="rtl">
+        <DialogTitle>נ״צ (תצוגה בלבד)</DialogTitle>
+        <DialogContent>
+          <div
+            style={{
+              fontFamily: "monospace",
+              fontSize: 16,
+              direction: "ltr",
+              marginTop: 6,
+            }}
+          >
+            {coordToView}
+          </div>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setCoordViewOpen(false)} variant="contained">
+            סגור
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      <Dialog open={confirmOpen} onClose={() => setConfirmOpen(false)} dir="rtl">
+        <DialogTitle>אישור מחיקה</DialogTitle>
+        <DialogContent>
+          האם אתה בטוח שברצונך למחוק את האירוע?
+        </DialogContent>
+        <DialogActions>
+          <Button
+            onClick={() => {
+              setConfirmOpen(false);
+              setPendingDeleteId(null);
+            }}
+          >
+            ביטול
+          </Button>
+          <Button
+            onClick={() => {
+              if (pendingDeleteId != null) {
+                onDelete(pendingDeleteId);
+              }
+              setConfirmOpen(false);
+              setPendingDeleteId(null);
+            }}
+            color="error"
+            variant="contained"
+          >
+            מחיקה
+          </Button>
+        </DialogActions>
+      </Dialog>
+
     </>
   );
 }
