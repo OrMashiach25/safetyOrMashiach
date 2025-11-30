@@ -62,3 +62,38 @@ export function buildEventPayload(formData: FormData): EventPayload {
     civilAreaCoord: formData.civilAreaCoord,
   };
 }
+
+export type EditFieldKey =
+  | "Date"
+  | "location"
+  | "typeActivity"
+  | "categoryoption"
+  | "eventSeverity"
+  | "typeUnitActivity"
+  | "weather"
+  | "eventDescription"
+  | "subSubUnitInput"
+  | "results"
+  | "injuryLevel"
+  | "civilAreaCoord";
+
+export type EditFieldConfig = {
+  key: EditFieldKey;
+  label: string;
+  multiline?: boolean;
+};
+
+export const EDIT_FIELDS: EditFieldConfig[] = [
+  { key: "Date", label: "תאריך ושעה" },
+  { key: "location", label: "מיקום" },
+  { key: "typeActivity", label: "סוג פעילות" },
+  { key: "categoryoption", label: "קטגוריה" },
+  { key: "eventSeverity", label: "חומרת האירוע" },
+  { key: "typeUnitActivity", label: "סוג פעילות היחידה" },
+  { key: "weather", label: "מזג אוויר" },
+  { key: "subSubUnitInput", label: "תת־תת יחידה" },
+  { key: "results", label: "תוצאה" },
+  { key: "injuryLevel", label: "חומרת פגיעה" },
+  { key: "eventDescription", label: "תיאור האירוע", multiline: true },
+  { key: "civilAreaCoord", label: "נ״צ לשטח אזרחי" },
+];

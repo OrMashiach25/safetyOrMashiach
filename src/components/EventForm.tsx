@@ -2,23 +2,13 @@ import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import type { Option } from "../Data";
 import { Button, Dialog, DialogTitle, DialogContent, DialogActions, TextField } from "@mui/material";
-import ActivityType from "./Inputs/ActivityType";
-import Category from "./Inputs/Category";
-import DescriptionEvent from "./Inputs/DescriptionEvent";
-import EventSeverity from "./Inputs/EventSeverity";
-import LocationSelect from "./Inputs/Location";
-import Results from "./Inputs/Results";
-import SubSubUnitInput from "./Inputs/SubUnitInput";
-import TimeAndDate from "./Inputs/TimeAndDate";
-import Weather from "./Inputs/Weather";
-import UnitActivityType from "./Inputs/UnitActivityType";
 import { MuiErorrAlert } from "./MuiErrorAlert";
 import { createEvent, fetchEvents} from "../api/eventsApi";
 import type { EventPayload} from "../api/eventsApi";
 import  type { FormData } from "./eventFormConfig";
 import { initialFormData, isCivilArea, validateCoord,
   normalizeCoord, buildEventPayload } from "./eventFormConfig";
- 
+import { EventFields } from "./EventFields";
 
 function EventForm() {
 
@@ -47,7 +37,6 @@ function EventForm() {
                 setHasEvents(false);
             }
         }
-
         checkEvents();
     }, []);
 
@@ -105,82 +94,17 @@ function EventForm() {
                 <h1 className="event-form-title"> יצירת אירוע חדש</h1>
                 <form onSubmit={handleSubmit}>
                     <div className="event-form">
-                        <div className="field">
-                            <TimeAndDate
-                            value={formData.timeDate}
-                            onChange={(v: string) => updateField("timeDate", v)}
-                            />
-                        </div>
-
-                        <div className="field">
-                            <LocationSelect
-                                value={formData.location}
-                                onChange={(v) => {
-                                    setPrevLocation(formData.location);
-
-                                    if (isCivilArea(v)) {
-                                    setPendingCivilLoc(v);
-                                    setCoordDraft(formData.civilAreaCoord || "");
-                                    setCoordError("");
-                                    setCoordDialogOpen(true);
-                                    } else {
-                                    updateField("location", v);
-                                    updateField("civilAreaCoord", "");
-                                    }
-                                }}
-                            />
-                        </div>
-                        <div className="field">
-                            <ActivityType
-                            value={formData.typeActivity}
-                            onChange={(v) => updateField("typeActivity", v)}
-                            />
-                        </div>
-                        <div className="field">
-                            <Category
-                            value={formData.categoryoption}
-                            onChange={(v) => updateField("categoryoption", v)}
-                            />
-                        </div>
-                        <div className="field">
-                            <EventSeverity
-                            value={formData.eventSeverity}
-                            onChange={(v) => updateField("eventSeverity", v)}
-                            />
-                        </div>
-                        <div className="field">
-                            <UnitActivityType
-                            value={formData.typeUnitActivity}
-                            onChange={(v) => updateField("typeUnitActivity", v)}
-                            />
-                        </div>
-                        <div className="field">
-                            <Weather
-                            value={formData.weather}
-                            onChange={(v) => updateField("weather", v)}
-                            />
-                        </div>
-                        <div className="field">
-                            <SubSubUnitInput
-                            value={formData.subSubUnitInput}
-                            onChange={(v) => updateField("subSubUnitInput", v)}
-                            />
-                        </div>
-                        <div className="results-wrapper">
-                            <Results
-                            value={formData.results}
-                            onChange={(v) => updateField("results", v)}
-                            injuryLevel={formData.injuryLevel}
-                            onChangeInjury={(v) => updateField("injuryLevel", v)}
-                            />
-                        </div>
-                        <div className="field">
-                            <DescriptionEvent
-                            value={formData.eventDescription}
-                            onChange={(v) => updateField("eventDescription", v)}
-                            />
-                        </div>
-
+                          <EventFields
+                            formData={formData}
+                            updateField={updateField}
+                            onCivilAreaSelected={(v) => {
+                            setPrevLocation(formData.location);
+                            setPendingCivilLoc(v);
+                            setCoordDraft(formData.civilAreaCoord || "");
+                            setCoordError("");
+                            setCoordDialogOpen(true);
+                            }}
+                        /> 
                     </div>
 
                     {errorMessage && <MuiErorrAlert key={erorrKey} message={errorMessage} duration={3000}/>}

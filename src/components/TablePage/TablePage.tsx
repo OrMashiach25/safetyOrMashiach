@@ -4,44 +4,16 @@ import Button from "@mui/material/Button";
 import {Dialog, DialogTitle, DialogContent, DialogActions, TextField, MenuItem } from "@mui/material";
 import ObjectTable from "./ObjectTable";
 import type { TableEvent } from "./ObjectTable";
-import {TIME_DATE_LABEL, LOCATION_LABEL, TYPE_ACTIVITY_LABEL, CATEGORY_OPTION_LABEL, EVENT_SEVERITY_LABEL, TYPE_UNIT_ACTIVITY_LABEL,
-  WEATHER_LABEL, EVENT_DESCRIPTION_LABEL, SUB_SUBUNIY_INPUT_LABEL, RESULTS_LABEL, INJURY_LEVEL_LABEL} from "../../labels";
 import {fetchEvents, deleteEvent, updateEvent, type EventPayload } from "../../api/eventsApi";
 import type { Option } from "../../Data";
 import {activityTypeArr, categoryArr, eventSeverityArr, locationArr, resultsArr, injuriesLevelArr,
   unitActivityTypeArr, weatherArr} from "../../Data"
 import "../TablePage/TablePage.css"
+import { EDIT_FIELDS } from "../eventFormConfig";
 
-type EditFieldKey =
-  | "Date"
-  | "location"
-  | "typeActivity"
-  | "categoryoption"
-  | "eventSeverity"
-  | "typeUnitActivity"
-  | "weather"
-  | "eventDescription"
-  | "subSubUnitInput"
-  | "results"
-  | "injuryLevel"
-  | "civilAreaCoord";
+type EditFieldKey = (typeof EDIT_FIELDS)[number]["key"];
 
 type EditValues = Record<EditFieldKey, string>;
-
-const EDIT_FIELDS: { key: EditFieldKey; label: string; multiline?: boolean }[] = [
-  { key: "Date", label: TIME_DATE_LABEL },
-  { key: "location", label: LOCATION_LABEL },
-  { key: "typeActivity", label: TYPE_ACTIVITY_LABEL },
-  { key: "categoryoption", label: CATEGORY_OPTION_LABEL },
-  { key: "eventSeverity", label: EVENT_SEVERITY_LABEL },
-  { key: "typeUnitActivity", label: TYPE_UNIT_ACTIVITY_LABEL },
-  { key: "weather", label: WEATHER_LABEL },
-  { key: "eventDescription", label: EVENT_DESCRIPTION_LABEL, multiline: true },
-  { key: "subSubUnitInput", label: SUB_SUBUNIY_INPUT_LABEL },
-  { key: "results", label: RESULTS_LABEL },
-  { key: "injuryLevel", label: INJURY_LEVEL_LABEL },
-  { key: "civilAreaCoord", label: "נ״צ" },
-];
 
 const FIELD_OPTIONS: Partial<Record<EditFieldKey, Option[]>> = {
   location: locationArr,
